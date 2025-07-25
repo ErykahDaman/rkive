@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterLearn | Code Geass - Digital Education Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        .orbitron { font-family: 'Orbitron', monospace; }
+        .learning-card {
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .learning-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, var(--cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .learning-card:hover::after {
+            opacity: 0.1;
+        }
+        .learning-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px var(--shadow-heavy);
+        }
+        .module-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+        .progress-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--deep-navy);
+            color: var(--cyan);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .skill-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--steel-blue);
+            color: var(--white);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+            border: 1px solid var(--cyan);
+        }
+        .learning-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(21, 60, 106, 0.3);
+            border-radius: 15px;
+            border: 1px solid var(--ocean-blue);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--cyan);
+            display: block;
+        }
+        .learning-path {
+            background: linear-gradient(135deg, var(--steel-blue), var(--dark-purple));
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="grid-pattern"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo orbitron">CODE GEASS</div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="interlearn.html" class="active">InterLearn</a></li>
+                <li><a href="safecheck.html">SafeCheck</a></li>
+                <li><a href="lexiguard.html">LexiGuard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="orbitron">Welcome to InterLearn</h1>
+                <p>Your gateway to mastering online behavior, cyber safety, and self-growth — all in one comprehensive hub.</p>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">Build digital confidence through structured learning paths designed for the African digital landscape.</p>
+                <a href="#modules" class="btn btn-primary">Start Your Journey</a>
+            </div>
+        </section>
+
+        <!-- Learning Statistics -->
+        <section class="section">
+            <div class="container">
+                <div class="learning-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span>Learning Modules</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span>Interactive Lessons</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span>Access Available</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span>Free Content</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Path Overview -->
+        <section class="section">
+            <div class="container">
+                <div class="learning-path">
+                    <h2>Your Personalized Learning Path</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem;">Progress through our carefully curated modules at your own pace. Each module builds upon the previous one to create a comprehensive understanding of digital citizenship.</p>
+                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <span class="skill-badge">Beginner Friendly</span>
+                        <span class="skill-badge">Self-Paced</span>
+                        <span class="skill-badge">Interactive</span>
+                        <span class="skill-badge">Certificate Ready</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Modules -->
+        <section id="modules" class="section">
+            <div class="container">
+                <h2 class="section-title">Learning Modules</h2>
+                <div class="cards-grid">
+                    
+                    <!-- Digital Etiquette -->
+                    <div class="card learning-card" onclick="openModule('digital-etiquette')">
+                        <div class="progress-indicator">Start</div>
+                        <img src="assets/etiquette.png" alt="Digital Etiquette" class="module-image">
+                        <div style="padding: 2rem;">
+                            <h3 style="color: var(--cyan);">Digital Etiquette</h3>
+                            <p>Master the art of respectful online communication, tone control, and conflict resolution in digital spaces.</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="skill-badge">Communication</span>
+                                <span class="skill-badge">Respect</span>
+                                <span class="skill-badge">Conflict Resolution</span>
+                            </div>
+                            <div style="margin-top: 1.5rem;">
+                                <span class="btn btn-primary">Begin Module →</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cybersecurity & Privacy -->
+                    <div class="card learning-card" onclick="openModule('cybersecurity-privacy')">
+                        <div class="progress-indicator">Start</div>
+                        <img src="assets/privacy.png" alt="Cybersecurity & Privacy" class="module-image">
+                        <div style="padding: 2rem;">
+                            <h3 style="color: var(--bright-magenta);">Cybersecurity & Data Privacy</h3>
+                            <p>Learn essential security practices: password management, recognizing phishing, two-factor authentication, and secure browsing.</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="skill-badge">Password Security</span>
+                                <span class="skill-badge">Phishing Detection</span>
+                                <span class="skill-badge">2FA Setup</span>
+                            </div>
+                            <div style="margin-top: 1.5rem;">
+                                <span class="btn btn-warning">Begin Module →</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code of Conduct -->
+                    <div class="card learning-card" onclick="openModule('code-of-conduct')">
+                        <div class="progress-indicator">Start</div>
+                        <img src="assets/conduct.png" alt="Code of Conduct" class="module-image">
+                        <div style="padding: 2rem;">
+                            <h3 style="color: var(--cyan);">Internet Code of Conduct</h3>
+                            <p>Understand digital rules, boundaries, and expected behavior across different online platforms and communities.</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="skill-badge">Digital Rules</span>
+                                <span class="skill-badge">Boundaries</span>
+                                <span class="skill-badge">Community Guidelines</span>
+                            </div>
+                            <div style="margin-top: 1.5rem;">
+                                <span class="btn btn-success">Begin Module →</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Self Help Resources -->
+                    <div class="card learning-card" onclick="openModule('self-help')">
+                        <div class="progress-indicator">Start</div>
+                        <img src="assets/selfhelp.png" alt="Self Help" class="module-image">
+                        <div style="padding: 2rem;">
+                            <h3 style="color: var(--ocean-blue);">Self-Help & Motivation</h3>
+                            <p>Access curated books, audiobooks, TED Talks, and articles designed to build digital confidence and personal growth.</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="skill-badge">Personal Growth</span>
+                                <span class="skill-badge">Confidence Building</span>
+                                <span class="skill-badge">Resource Library</span>
+                            </div>
+                            <div style="margin-top: 1.5rem;">
+                                <span class="btn btn-secondary">Begin Module →</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Digital Literacy -->
+                    <div class="card learning-card" onclick="openModule('digital-literacy')">
+                        <div class="progress-indicator">Start</div>
+                        <img src="assets/literacy.png" alt="Digital Literacy" class="module-image">
+                        <div style="padding: 2rem;">
+                            <h3 style="color: var(--bright-magenta);">Digital Literacy</h3>
+                            <p>Enhance your understanding of devices, browsers, social media platforms, and develop responsible digital usage habits.</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="skill-badge">Device Mastery</span>
+                                <span class="skill-badge">Social Media</span>
+                                <span class="skill-badge">Responsible Usage</span>
+                            </div>
+                            <div style="margin-top: 1.5rem;">
+                                <span class="btn btn-danger">Begin Module →</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Features -->
+        <section class="section" style="background: rgba(4, 33, 66, 0.3);">
+            <div class="container">
+                <h2 class="section-title">Why Choose InterLearn?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <h4>Mobile Friendly</h4>
+                        <p>Learn on any device, anywhere, anytime. Our responsive design works perfectly on phones, tablets, and computers.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Africa-Focused</h4>
+                        <p>Content tailored for African contexts, addressing local digital challenges and cultural considerations.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <h4>Progress Tracking</h4>
+                        <p>Monitor your learning journey with detailed progress reports and achievement badges.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👥</div>
+                        <h4>Community Support</h4>
+                        <p>Connect with fellow learners, share experiences, and get help from our supportive community.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section">
+            <div class="container text-center">
+                <h2>Ready to Begin Your Digital Education Journey?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Join thousands of learners who have transformed their digital lives through InterLearn.</p>
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <a href="#modules" class="btn btn-primary">Start Learning Now</a>
+                    <a href="about.html" class="btn btn-secondary">Learn More About Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="fzVzg-S4dJzGU_iYSo5SR";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>InterLearn</h4>
+                    <p>Empowering digital citizens through comprehensive education and practical skills development.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Learning Modules</h4>
+                    <ul>
+                        <li><a href="digital-etiquette">Digital Etiquette</a></li>
+                        <li><a href="cybersecurity-privacy">Cybersecurity & Privacy</a></li>
+                        <li><a href="code-of-conduct">Code of Conduct</a></li>
+                        <li><a href="self-help">Self-Help Resources</a></li>
+                        <li><a href="digital-literacy">Digital Literacy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#community">Community Forum</a></li>
+                        <li><a href="#progress">Track Progress</a></li>
+                        <li><a href="#certificates">Certificates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#feedback">Give Feedback</a></li>
+                        <li><a href="#newsletter">Newsletter</a></li>
+                        <li><a href="index.html">Back to Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 InterLearn - Code Geass Project | Built for Africa's Digital Education | GirlCode Hackathon</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Module Selection -->
+    <div id="moduleModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center;">
+        <div style="background: linear-gradient(135deg, var(--steel-blue), var(--dark-purple)); padding: 3rem; border-radius: 20px; max-width: 500px; margin: 2rem; border: 2px solid var(--cyan);">
+            <h3 id="modalTitle" style="color: var(--cyan); margin-bottom: 1rem;"></h3>
+            <p id="modalDescription" style="margin-bottom: 2rem;"></p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button onclick="startModule()" class="btn btn-primary">Start Module</button>
+                <button onclick="closeModal()" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Module selection functionality
+        let selectedModule = '';
+
+        function openModule(moduleId) {
+            selectedModule = moduleId;
+            const modal = document.getElementById('moduleModal');
+            const title = document.getElementById('modalTitle');
+            const description = document.getElementById('modalDescription');
+
+            const moduleInfo = {
+                'digital-etiquette': {
+                    title: 'Digital Etiquette Module',
+                    description: 'Learn the fundamentals of respectful online communication, including email etiquette, social media behavior, and conflict resolution strategies.'
+                },
+                'cybersecurity-privacy': {
+                    title: 'Cybersecurity & Privacy Module',
+                    description: 'Master essential security practices to protect yourself online, including password management, phishing detection, and privacy settings.'
+                },
+                'code-of-conduct': {
+                    title: 'Internet Code of Conduct Module',
+                    description: 'Understand the rules and expectations for behavior in different online spaces, from social media to professional platforms.'
+                },
+                'self-help': {
+                    title: 'Self-Help & Motivation Module',
+                    description: 'Access a curated library of resources designed to build confidence and support personal growth in the digital age.'
+                },
+                'digital-literacy': {
+                    title: 'Digital Literacy Module',
+                    description: 'Develop comprehensive understanding of digital tools, platforms, and responsible usage practices for the modern world.'
+                }
+            };
+
+            title.textContent = moduleInfo[moduleId].title;
+            description.textContent = moduleInfo[moduleId].description;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('moduleModal').style.display = 'none';
+        }
+
+        function startModule() {
+            // In a real implementation, this would navigate to the specific module page
+            alert(`Starting ${selectedModule} module! This would navigate to the specific learning content.`);
+            closeModal();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('moduleModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all learning cards
+        document.querySelectorAll('.learning-card, .feature-item, .stat-item').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

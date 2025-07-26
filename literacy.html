@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -244,34 +245,34 @@
         <p>Drag and drop to match technology terms with their correct definitions!</p>
         
         <h4>Terms to Match:</h4>
-        <div id="dragTerms" style="min-height: 100px; border: 1px solid #ccc; padding: 10px;">
-          <div draggable="true" ondragstart="drag(event)" id="browser" style="display: inline-block; margin: 5px; padding: 8px; background-color: #e3f2fd; border: 1px solid #1976d2; cursor: move;">Browser</div>
-          <div draggable="true" ondragstart="drag(event)" id="phishing" style="display: inline-block; margin: 5px; padding: 8px; background-color: #e3f2fd; border: 1px solid #1976d2; cursor: move;">Phishing</div>
-          <div draggable="true" ondragstart="drag(event)" id="antivirus" style="display: inline-block; margin: 5px; padding: 8px; background-color: #e3f2fd; border: 1px solid #1976d2; cursor: move;">Antivirus</div>
-          <div draggable="true" ondragstart="drag(event)" id="cloud" style="display: inline-block; margin: 5px; padding: 8px; background-color: #e3f2fd; border: 1px solid #1976d2; cursor: move;">Cloud Storage</div>
-          <div draggable="true" ondragstart="drag(event)" id="vpn" style="display: inline-block; margin: 5px; padding: 8px; background-color: #e3f2fd; border: 1px solid #1976d2; cursor: move;">VPN</div>
+        <div id="dragTerms" style="min-height: 100px; border: 1px solid #ccc; padding: 10px; background-color: #ffffff;">
+          <div draggable="true" ondragstart="drag(event)" id="browser" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">Browser</div>
+          <div draggable="true" ondragstart="drag(event)" id="phishing" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">Phishing</div>
+          <div draggable="true" ondragstart="drag(event)" id="antivirus" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">Antivirus</div>
+          <div draggable="true" ondragstart="drag(event)" id="cloud" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">Cloud Storage</div>
+          <div draggable="true" ondragstart="drag(event)" id="vpn" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">VPN</div>
         </div>
         
         <h4>Drop Zones (Match the definitions):</h4>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="browser" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9;">
+        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="browser" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
           <strong>Definition 1:</strong> Software used to access websites like Chrome, Firefox, or Safari
         </div>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="phishing" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9;">
+        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="phishing" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
           <strong>Definition 2:</strong> Fraudulent attempts to steal personal information through fake emails or websites
         </div>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="antivirus" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9;">
+        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="antivirus" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
           <strong>Definition 3:</strong> Software that protects your computer from viruses and malware
         </div>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="cloud" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9;">
+        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="cloud" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
           <strong>Definition 4:</strong> Online storage service where you can save files and access them from anywhere
         </div>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="vpn" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9;">
+        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="vpn" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
           <strong>Definition 5:</strong> Technology that hides your IP address and encrypts your internet connection
         </div>
         
-        <button onclick="checkMatches()">Check My Answers</button>
-        <button onclick="resetMatching()">Reset Game</button>
-        <div id="matchFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc;"></div>
+        <button onclick="checkMatches()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Check My Answers</button>
+        <button onclick="resetMatching()" style="background: #666; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset Game</button>
+        <div id="matchFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; background-color: #fff; color: #000 !important;"></div>
       </div>
 
       <hr>
@@ -284,15 +285,15 @@
         <div id="quizContainer">
           <div id="questionDisplay">
             <h4>Question <span id="questionNumber">1</span> of <span id="totalQuestions">10</span></h4>
-            <p id="questionText">Loading question...</p>
+            <p id="questionText" style="color: #000 !important; font-weight: bold;">Loading question...</p>
             <div id="quizOptions"></div>
-            <div id="quizFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none;"></div>
-            <button id="nextQuizButton" onclick="nextQuizQuestion()" style="display: none;">Next Question</button>
+            <div id="quizFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none; background-color: #fff; color: #000 !important;"></div>
+            <button id="nextQuizButton" onclick="nextQuizQuestion()" style="display: none; background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Next Question</button>
           </div>
         </div>
         
         <p><strong>Quiz Score:</strong> <span id="quizScore">0</span> / <span id="quizTotal">0</span> (Accuracy: <span id="quizAccuracy">0</span>%)</p>
-        <button onclick="resetQuiz()">Start New Quiz</button>
+        <button onclick="resetQuiz()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Start New Quiz</button>
       </div>
 
       <hr>
@@ -305,15 +306,15 @@
         <div id="scenarioGame">
           <div id="scenarioDisplay">
             <h4>Scenario <span id="scenarioNumber">1</span></h4>
-            <div id="scenarioText" style="padding: 15px; background-color: #f0f8ff; border: 1px solid #0066cc;">Loading scenario...</div>
+            <div id="scenarioText" style="padding: 15px; background-color: #f0f8ff; border: 1px solid #0066cc; color: #000 !important;">Loading scenario...</div>
             <div id="scenarioOptions" style="margin-top: 15px;"></div>
-            <div id="scenarioFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none;"></div>
-            <button id="nextScenarioButton" onclick="nextScenario()" style="display: none;">Next Scenario</button>
+            <div id="scenarioFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none; background-color: #fff; color: #000 !important;"></div>
+            <button id="nextScenarioButton" onclick="nextScenario()" style="display: none; background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Next Scenario</button>
           </div>
         </div>
         
         <p><strong>Scenario Score:</strong> <span id="scenarioScore">0</span> / <span id="scenarioTotal">0</span></p>
-        <button onclick="resetScenarios()">Reset Scenarios</button>
+        <button onclick="resetScenarios()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset Scenarios</button>
       </div>
 
       <hr>
@@ -325,14 +326,14 @@
         
         <div id="deviceChallenge">
           <h4>Device: <span id="currentDevice">Smartphone</span></h4>
-          <div id="deviceQuestion" style="padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd;">Loading device challenge...</div>
+          <div id="deviceQuestion" style="padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; color: #000 !important;">Loading device challenge...</div>
           <div id="deviceOptions" style="margin-top: 10px;"></div>
-          <div id="deviceFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none;"></div>
-          <button id="nextDeviceButton" onclick="nextDeviceChallenge()" style="display: none;">Next Challenge</button>
+          <div id="deviceFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none; background-color: #fff; color: #000 !important;"></div>
+          <button id="nextDeviceButton" onclick="nextDeviceChallenge()" style="display: none; background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Next Challenge</button>
         </div>
         
         <p><strong>Device Skills Score:</strong> <span id="deviceScore">0</span> / <span id="deviceTotal">0</span></p>
-        <button onclick="resetDeviceChallenge()">Reset Device Challenge</button>
+        <button onclick="resetDeviceChallenge()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset Device Challenge</button>
       </div>
 
       <hr>
@@ -343,14 +344,14 @@
         <p>Prove your ability to stay safe in the digital world!</p>
         
         <div id="safetyTest">
-          <div id="safetyScenario" style="padding: 15px; background-color: #fff3cd; border: 1px solid #ffc107;">Loading safety scenario...</div>
+          <div id="safetyScenario" style="padding: 15px; background-color: #fff3cd; border: 1px solid #ffc107; color: #000 !important;">Loading safety scenario...</div>
           <div id="safetyOptions" style="margin-top: 15px;"></div>
-          <div id="safetyFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none;"></div>
-          <button id="nextSafetyButton" onclick="nextSafetyTest()" style="display: none;">Next Safety Test</button>
+          <div id="safetyFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none; background-color: #fff; color: #000 !important;"></div>
+          <button id="nextSafetyButton" onclick="nextSafetyTest()" style="display: none; background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Next Safety Test</button>
         </div>
         
         <p><strong>Safety Score:</strong> <span id="safetyScore">0</span> / <span id="safetyTotal">0</span></p>
-        <button onclick="resetSafetyTest()">Reset Safety Test</button>
+        <button onclick="resetSafetyTest()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset Safety Test</button>
       </div>
 
       <!-- Achievement System -->
@@ -365,16 +366,16 @@
       <!-- Progress Summary -->
       <div>
         <h3>📈 Progress Summary</h3>
-        <button onclick="showProgressReport()">View Detailed Progress Report</button>
-        <button onclick="resetAllGames()">Reset All Progress</button>
+        <button onclick="showProgressReport()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">View Detailed Progress Report</button>
+        <button onclick="resetAllGames()" style="background: #666; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset All Progress</button>
       </div>
     </section>
 
     <!-- Progress Report Modal -->
-    <div id="progressModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 2px solid #333; z-index: 1000; max-width: 80%; max-height: 80%; overflow-y: auto;">
+    <div id="progressModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 2px solid #333; z-index: 1000; max-width: 80%; max-height: 80%; overflow-y: auto; color: #000 !important;">
       <h3>📊 Detailed Progress Report</h3>
       <div id="progressContent"></div>
-      <button onclick="hideProgressReport()">Close Report</button>
+      <button onclick="hideProgressReport()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Close Report</button>
     </div>
   </main>
 
@@ -500,106 +501,4 @@
           "Restart your computer and ignore it"
         ],
         correct: 1,
-        explanation: "This is likely a fake alert trying to install malware. Close it and use legitimate antivirus software instead."
-      },
-      {
-        scenario: "You want to video call your grandmother who lives in a rural area with slow internet.",
-        options: [
-          "Use the highest quality video settings",
-          "Use audio-only or lower video quality",
-          "Give up on video calling",
-          "Buy her a new internet connection"
-        ],
-        correct: 1,
-        explanation: "Lower video quality or audio-only calls work better on slow connections, ensuring you can still communicate effectively."
-      },
-      {
-        scenario: "You're creating social media accounts for the first time. What privacy settings should you choose?",
-        options: [
-          "Make everything public so everyone can find you",
-          "Set posts to friends/contacts only and limit personal info",
-          "Use your real name and post your address",
-          "Accept all friend requests to make more connections"
-        ],
-        correct: 1,
-        explanation: "Start with private settings and only share with people you know. You can always make things more public later."
-      }
-    ];
-
-    // Device challenge data
-    const deviceChallenges = [
-      {
-        device: "Smartphone",
-        question: "How do you save battery life on your smartphone?",
-        options: [
-          "Keep screen brightness at maximum",
-          "Close unused apps and reduce brightness",
-          "Keep all apps running in background",
-          "Never turn off location services"
-        ],
-        correct: 1,
-        explanation: "Closing unused apps, reducing brightness, and turning off unnecessary features helps conserve battery life."
-      },
-      {
-        device: "Computer",
-        question: "What's the best way to organize your files on a computer?",
-        options: [
-          "Save everything on the desktop",
-          "Create folders with clear names and organize by type/date",
-          "Put all files in one folder",
-          "Don't worry about organization"
-        ],
-        correct: 1,
-        explanation: "Organizing files in clearly named folders by type, project, or date makes them easier to find later."
-      },
-      {
-        device: "Tablet",
-        question: "How do you switch between apps quickly on a tablet?",
-        options: [
-          "Close and reopen each app",
-          "Use multitasking gestures or recent apps button",
-          "Restart the tablet each time",
-          "Only use one app at a time"
-        ],
-        correct: 1,
-        explanation: "Most tablets have multitasking features like app switcher buttons or gestures to quickly move between apps."
-      },
-      {
-        device: "Smart TV",
-        question: "How do you connect your phone to share photos on a smart TV?",
-        options: [
-          "You can't do this",
-          "Use screen mirroring, casting, or connect via cable",
-          "Email the photos to the TV",
-          "Only use USB drives"
-        ],
-        correct: 1,
-        explanation: "Modern smart TVs support screen mirroring, casting (like Chromecast), or direct cable connections for sharing content."
-      }
-    ];
-
-    // Safety test data
-const safetyTests = [
-  {
-    scenario: "ALERT: You receive a call claiming to be from your bank saying there's suspicious activity and they need your PIN to secure your account.",
-    options: [
-      "Give them your PIN immediately",
-      "Hang up and call your bank using the official number",
-      "Ask them to email you instead",
-      "Give them a fake PIN to test them"
-    ],
-    correct: 1,
-    explanation: "Banks never ask for PINs over the phone. This is a scam. Always hang up and call the official bank number."
-  },
-  {
-    scenario: "SECURITY ALERT: Your email account was accessed from a new device. You didn't access it. What do you do?",
-    options: [
-      "Ignore the notification",
-      "Immediately change your email password and enable two-factor authentication",
-      "Send your login info to IT support",
-      "Uninstall your email app"
-    ],
-    correct: 1,
-    explanation: "This could be unauthorized access. Change your password and enable 2FA immediately."
-  }
-];
+        explanation: "This is

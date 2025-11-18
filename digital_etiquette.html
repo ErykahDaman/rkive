@@ -3,16 +3,328 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Etiquette Module | InterLearn</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Digital Etiquette | Code Geass</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    /* Additional Page Styles */
+    body {
+      background: linear-gradient(135deg, #0f0c29 0%, #1a0f3a 50%, #24243e 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      background: linear-gradient(90deg, rgba(26, 10, 46, 0.95) 0%, rgba(45, 27, 78, 0.95) 100%);
+      padding: 15px 30px;
+      border-bottom: 2px solid rgba(138, 43, 226, 0.4);
+      box-shadow: 0 2px 10px rgba(138, 43, 226, 0.3);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #8a2be2 0%, #c77dff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #b19cd9;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #e0b0ff;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #8a2be2 0%, #c77dff 100%);
+    }
+
+    /* Card Styles */
+    .card-cyber {
+      background: linear-gradient(135deg, rgba(26, 10, 46, 0.9), rgba(45, 27, 78, 0.9));
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Chapter Styles */
+    .chapter-item {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .chapter-item:hover:not(.locked) {
+      background: rgba(138, 43, 226, 0.2);
+      border-left: 3px solid #8a2be2;
+      transform: translateX(5px);
+    }
+
+    .chapter-item.active {
+      background: linear-gradient(90deg, rgba(138, 43, 226, 0.4) 0%, rgba(138, 43, 226, 0.2) 100%);
+      border-left: 3px solid #e0b0ff;
+    }
+
+    .chapter-item.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .chapter-item.completed {
+      background: rgba(52, 211, 153, 0.1);
+    }
+
+    .chapter-icon {
+      font-size: 1rem;
+      margin-right: 8px;
+    }
+
+    .chapter-title {
+      font-size: 0.9rem;
+      color: #e0b0ff;
+    }
+
+    /* Button Styles */
+    .btn-custom {
+      background: linear-gradient(135deg, #8a2be2 0%, #9d4edd 100%);
+      border: none;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
+      cursor: pointer;
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+      background: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+    }
+
+    /* Progress Bar */
+    .progress {
+      height: 25px;
+      background: rgba(138, 43, 226, 0.1);
+      border-radius: 15px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .progress-bar {
+      background: linear-gradient(90deg, #8a2be2, #a78bfa);
+      border-radius: 15px;
+      transition: width 0.5s ease;
+    }
+
+    /* Content Boxes */
+    .concept-box {
+      background: rgba(138, 43, 226, 0.15);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 8px;
+      border-left: 4px solid #8a2be2;
+    }
+
+    .alert-box {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      border-radius: 8px;
+      border-left: 4px solid #f43f5e;
+    }
+
+    /* Quiz Styles */
+    .quiz-form {
+      background: rgba(26, 10, 46, 0.5);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .question-block {
+      background: rgba(138, 43, 226, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(138, 43, 226, 0.2);
+    }
+
+    .form-check-input:checked {
+      background-color: #8a2be2;
+      border-color: #8a2be2;
+    }
+
+    .quiz-feedback {
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .quiz-feedback.correct {
+      background: rgba(52, 211, 153, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.5);
+      color: #34d399;
+    }
+
+    .quiz-feedback.incorrect {
+      background: rgba(244, 63, 94, 0.2);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: #f43f5e;
+    }
+
+    /* Game Section Styles */
+    .game-section {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .scenario-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      color: #000;
+      min-height: 300px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .scenario-card h4 {
+      color: #8a2be2;
+      margin-bottom: 16px;
+    }
+
+    .scenario-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 12px;
+      background: rgba(139, 92, 246, 0.15);
+      border: 2px solid rgba(139, 92, 246, 0.4);
+      color: #8a2be2;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(139, 92, 246, 0.3);
+      border-color: #8a2be2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+    }
+
+    .option-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .option-btn.correct {
+      background: rgba(52, 211, 153, 0.2);
+      border-color: #34d399;
+      color: #059669;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: #f43f5e;
+      color: #dc2626;
+    }
+
+    .game-stats {
+      background: rgba(138, 43, 226, 0.15);
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .feedback-box {
+      display: none;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.correct {
+      background: rgba(52, 211, 153, 0.2);
+      border: 2px solid #34d399;
+    }
+
+    .feedback-box.incorrect {
+      background: rgba(244, 63, 94, 0.2);
+      border: 2px solid #f43f5e;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
-   <header>
+
+  <!-- Navbar -->
+  <header>
     <nav class="navbar d-flex justify-content-between align-items-center">
       <div class="logo">CODE GEASS</div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="interlearn.html">InterLearn</a></li>
+        <li><a href="interlearn.html" class="active">InterLearn</a></li>
         <li><a href="safecheck.html">SafeCheck</a></li>
         <li><a href="lexiguard.html">LexiGuard</a></li>
         <li><a href="community.html">Community Hub</a></li>
@@ -22,526 +334,322 @@
     </nav>
   </header>
 
-
-
-  <main>
-    <section>
-      <h1>📱 Digital Etiquette Learning Module</h1>
-      <p>Master respectful communication and behavior in digital spaces through interactive learning and games!</p>
-    </section>
-
-    <!-- Informative Section -->
-    <section>
-      <h2>📚 Learn About Digital Etiquette</h2>
-      
-      <h3>What is Digital Etiquette?</h3>
-      <p>Digital etiquette (or "netiquette") refers to the responsible and respectful way of communicating and behaving when using digital technology, including social media, email, messaging apps, and online forums.</p>
-      
-      <h3>🌟 Key Principles of Digital Etiquette</h3>
-      
-      <h4>1. Think Before You Post</h4>
-      <p><strong>Why it matters:</strong> Once something is online, it can be there forever. Screenshots can be taken, and content can be shared beyond your intended audience.</p>
-      <p><strong>Best practice:</strong> Ask yourself: "Would I be comfortable if my teacher, parent, or future employer saw this?"</p>
-      
-      <h4>2. Respect Others' Privacy</h4>
-      <p><strong>Why it matters:</strong> Not everyone wants their photos, location, or personal information shared online.</p>
-      <p><strong>Best practice:</strong> Always ask permission before posting photos of others or sharing their personal information.</p>
-      
-      <h4>3. Use Appropriate Language</h4>
-      <p><strong>Why it matters:</strong> Offensive language can hurt others and damage your reputation.</p>
-      <p><strong>Best practice:</strong> Avoid profanity, hate speech, and discriminatory language. Write as if you're speaking to someone face-to-face.</p>
-      
-      <h4>4. Be Mindful of Tone</h4>
-      <p><strong>Why it matters:</strong> Text doesn't convey tone well, and messages can be misunderstood.</p>
-      <p><strong>Best practice:</strong> Use emojis appropriately to convey tone. Avoid ALL CAPS (it seems like shouting). Read your message before sending.</p>
-      
-      <h4>5. Respond Appropriately to Conflict</h4>
-      <p><strong>Why it matters:</strong> Online conflicts can escalate quickly and cause lasting damage to relationships.</p>
-      <p><strong>Best practice:</strong> Don't engage with trolls. Report harassment. Take difficult conversations offline when possible.</p>
-      
-      <h4>6. Respect Intellectual Property</h4>
-      <p><strong>Why it matters:</strong> Using others' work without permission is theft and can have legal consequences.</p>
-      <p><strong>Best practice:</strong> Give credit when sharing others' content. Don't copy homework or claim others' work as your own.</p>
-      
-      <h3>⚠️ Common Digital Etiquette Mistakes to Avoid</h3>
-      <ul>
-        <li><strong>Oversharing:</strong> Posting too much personal information or every detail of your life</li>
-        <li><strong>Cyberbullying:</strong> Using technology to harass, threaten, or embarrass others</li>
-        <li><strong>Ghosting:</strong> Suddenly stopping all communication without explanation</li>
-        <li><strong>Public arguments:</strong> Having heated debates or personal conflicts in public forums</li>
-        <li><strong>Spam posting:</strong> Flooding feeds with repetitive or irrelevant content</li>
-        <li><strong>Inappropriate tagging:</strong> Tagging people in posts they wouldn't want to be associated with</li>
-      </ul>
-      
-      <h3>✅ Platform-Specific Etiquette Tips</h3>
-      
-      <h4>WhatsApp & Messaging Apps</h4>
-      <ul>
-        <li>Don't add people to groups without asking</li>
-        <li>Respect "Do Not Disturb" hours</li>
-        <li>Use voice notes considerately (not everyone can listen immediately)</li>
-        <li>Don't forward unverified information or fake news</li>
-      </ul>
-      
-      <h4>Social Media (Facebook, Instagram, TikTok)</h4>
-      <ul>
-        <li>Think twice before posting when emotional</li>
-        <li>Use privacy settings appropriately</li>
-        <li>Don't post photos of others without permission</li>
-        <li>Be authentic - don't create fake personas</li>
-      </ul>
-      
-      <h4>Email & Professional Communication</h4>
-      <ul>
-        <li>Use clear, descriptive subject lines</li>
-        <li>Be concise but polite</li>
-        <li>Use proper greetings and sign-offs</li>
-        <li>Proofread before sending</li>
-      </ul>
-      
-      <h3>🛡️ When Digital Etiquette Goes Wrong</h3>
-      <p><strong>If you experience harassment or cyberbullying:</strong></p>
-      <ul>
-        <li>Don't respond to the harasser</li>
-        <li>Document the behavior (screenshots)</li>
-        <li>Block and report the person</li>
-        <li>Tell a trusted adult</li>
-        <li>Know that it's not your fault</li>
-      </ul>
-      
-      <p><strong>If you make a mistake:</strong></p>
-      <ul>
-        <li>Acknowledge it quickly</li>
-        <li>Apologize sincerely</li>
-        <li>Delete inappropriate content</li>
-        <li>Learn from the experience</li>
-        <li>Make amends if necessary</li>
-      </ul>
-    </section>
-
-    <hr>
-
-    <!-- Gamified Learning Section -->
-    <section>
-      <h2>🎮 Digital Etiquette Challenge Game</h2>
-      <p>Test your knowledge and earn points by choosing the correct response to digital etiquette scenarios!</p>
-      
-      <div>
-        <h3>📊 Your Progress</h3>
-        <p><strong>Score:</strong> <span id="score">0</span> / <span id="totalQuestions">0</span></p>
-        <p><strong>Percentage:</strong> <span id="percentage">0</span>%</p>
-        <p><strong>Level:</strong> <span id="level">Beginner</span></p>
+  <!-- Course Header -->
+  <section class="container-fluid py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+          <h1 class="fw-bold" style="color: #e0b0ff;">Digital Etiquette</h1>
+          <p class="lead mb-0" style="color: #b19cd9;">Master respectful communication and behavior in digital spaces</p>
+        </div>
+        <div>
+          <a href="interlearn.html" class="btn-custom"><span>← Back to InterLearn</span></a>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Progress Bar -->
+  <section class="container-fluid py-3">
+    <div class="container">
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-light fw-bold">Course Progress:</span>
+        <div class="progress flex-grow-1">
+          <div class="progress-bar" id="courseProgress" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+        <span class="text-light fw-bold" id="progressText">0/8</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Course Container -->
+  <div class="container my-5">
+    <div class="row">
       
-      <div id="gameArea">
-        <div id="questionCard">
-          <h3>Question <span id="questionNumber">1</span></h3>
-          <p id="scenarioText">Loading scenario...</p>
-          
-          <div id="optionsContainer">
-            <div>
-              <h4>Option A:</h4>
-              <button id="optionA" onclick="selectAnswer('A')">Option A</button>
-              <p id="optionAText"></p>
+      <!-- Sidebar - Chapter Navigation -->
+      <div class="col-lg-3 mb-4">
+        <div class="card-cyber p-3">
+          <h5 class="mb-3" style="color: #e0b0ff;">Course Chapters</h5>
+          <div class="chapter-list">
+            
+            <!-- Chapter 1 -->
+            <div class="chapter-item active" data-chapter="1">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">▶</span>
+                <span class="chapter-title">What is Digital Etiquette?</span>
+              </div>
             </div>
             
-            <div>
-              <h4>Option B:</h4>
-              <button id="optionB" onclick="selectAnswer('B')">Option B</button>
-              <p id="optionBText"></p>
+            <!-- Chapter 2 -->
+            <div class="chapter-item locked" data-chapter="2">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Knowledge Check: Basics</span>
+              </div>
+            </div>
+            
+            <!-- Chapter 3 -->
+            <div class="chapter-item locked" data-chapter="3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Key Principles</span>
+              </div>
+            </div>
+            
+            <!-- Chapter 4 -->
+            <div class="chapter-item locked" data-chapter="4">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Common Mistakes</span>
+              </div>
+            </div>
+            
+            <!-- Chapter 5 -->
+            <div class="chapter-item locked" data-chapter="5">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Practice: Identify Mistakes</span>
+              </div>
+            </div>
+            
+            <!-- Chapter 6 -->
+            <div class="chapter-item locked" data-chapter="6">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Platform-Specific Tips</span>
+              </div>
+            </div>
+            
+            <!-- Chapter 7 -->
+            <div class="chapter-item locked" data-chapter="7">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Handling Conflicts</span>
+              </div>
+            </div>
+            
+            <!-- Chapter 8 -->
+            <div class="chapter-item locked" data-chapter="8">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Final Assessment</span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="col-lg-9">
+        
+        <!-- Chapter Content Container -->
+        <div id="chapterContent" class="card-cyber p-4">
+          
+          <!-- CHAPTER 1: What is Digital Etiquette? -->
+          <div class="chapter-content" id="chapter-1">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 1: What is Digital Etiquette?</h2>
+            
+            <div class="lesson-content">
+              <h4 style="color: #b19cd9;">Understanding Digital Etiquette</h4>
+              <p>Digital etiquette (or "netiquette") refers to the responsible and respectful way of communicating and behaving when using digital technology, including social media, email, messaging apps, and online forums.</p>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Why Digital Etiquette Matters</h4>
+              
+              <div class="concept-box p-3 mb-3">
+                <strong style="color: #e0b0ff;">🌍 Your Digital Footprint</strong>
+                <p class="mb-0 mt-2">Everything you post, share, or comment on creates a permanent digital footprint. Future employers, schools, and others can see what you've shared online.</p>
+              </div>
+              
+              <div class="concept-box p-3 mb-3">
+                <strong style="color: #e0b0ff;">🤝 Building Relationships</strong>
+                <p class="mb-0 mt-2">Good digital etiquette helps you maintain positive relationships with friends, family, colleagues, and your online community.</p>
+              </div>
+              
+              <div class="concept-box p-3 mb-3">
+                <strong style="color: #e0b0ff;">🛡️ Protecting Yourself</strong>
+                <p class="mb-0 mt-2">Understanding digital etiquette helps you avoid cyberbullying, harassment, and other online threats.</p>
+              </div>
+              
+              <div class="concept-box p-3 mb-3">
+                <strong style="color: #e0b0ff;">💼 Professional Reputation</strong>
+                <p class="mb-0 mt-2">Your online behavior reflects on your character. Good digital etiquette can open doors to opportunities, while poor behavior can close them.</p>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">The Golden Rule Online</h4>
+              <p>Treat others online the way you would want to be treated in person. Behind every screen is a real person with real feelings.</p>
+              
+              <div class="alert-box p-3 mt-3">
+                <strong style="color: #f43f5e;">⚠️ Remember:</strong>
+                <p class="mb-0 mt-2">What happens online doesn't stay online. Screenshots, shares, and archives mean your digital actions can have real-world consequences.</p>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-end mt-4">
+              <button class="btn-custom next-chapter" data-next="2"><span>Continue →</span></button>
             </div>
           </div>
+
+          <!-- CHAPTER 2: Knowledge Check -->
+          <div class="chapter-content" id="chapter-2" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 2: Knowledge Check - Basics</h2>
+            
+            <div class="exercise-content">
+              <h4 style="color: #b19cd9;">Test Your Understanding</h4>
+              <p>Let's review what you've learned about digital etiquette basics.</p>
+              
+              <form id="quiz-chapter-2" class="quiz-form">
+                
+                <div class="question-block mb-4">
+                  <p class="fw-bold" style="color: #e0b0ff;">1. What is digital etiquette?</p>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_1" id="q2_1_a" value="a">
+                    <label class="form-check-label" for="q2_1_a">Using technology as much as possible</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_1" id="q2_1_b" value="b">
+                    <label class="form-check-label" for="q2_1_b">Responsible and respectful digital communication</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_1" id="q2_1_c" value="c">
+                    <label class="form-check-label" for="q2_1_c">Only posting positive content</label>
+                  </div>
+                </div>
+                
+                <div class="question-block mb-4">
+                  <p class="fw-bold" style="color: #e0b0ff;">2. Why does your digital footprint matter?</p>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_2" id="q2_2_a" value="a">
+                    <label class="form-check-label" for="q2_2_a">It doesn't matter, online activity is private</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_2" id="q2_2_b" value="b">
+                    <label class="form-check-label" for="q2_2_b">Future employers and schools can see your online behavior</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_2" id="q2_2_c" value="c">
+                    <label class="form-check-label" for="q2_2_c">Only for celebrities</label>
+                  </div>
+                </div>
+                
+                <div class="question-block mb-4">
+                  <p class="fw-bold" style="color: #e0b0ff;">3. What is the golden rule for online behavior?</p>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_3" id="q2_3_a" value="a">
+                    <label class="form-check-label" for="q2_3_a">Post as much as possible</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_3" id="q2_3_b" value="b">
+                    <label class="form-check-label" for="q2_3_b">Never post anything</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="q2_3" id="q2_3_c" value="c">
+                    <label class="form-check-label" for="q2_3_c">Treat others online as you would in person</label>
+                  </div>
+                </div>
+                
+                <div class="quiz-feedback" id="feedback-chapter-2"></div>
+                
+                <div class="d-flex justify-content-between mt-4">
+                  <button type="button" class="btn-custom prev-chapter" data-prev="1"><span>← Previous</span></button>
+                  <button type="submit" class="btn-custom"><span>Submit Answers</span></button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Add remaining chapters 3-8 here with similar structure -->
+          <!-- Placeholder for chapters 3-8 -->
+          <div class="chapter-content" id="chapter-3" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 3: Key Principles</h2>
+            <div class="lesson-content">
+              <p>Content for Chapter 3...</p>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="2"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="4"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <!-- Chapters 4-8 similar structure -->
           
-          <div id="feedback" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; display: none;">
-            <p id="feedbackText"></p>
-            <p id="explanationText"></p>
-            <button id="nextButton" onclick="nextQuestion()">Next Question</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div class="game-section">
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center mb-4">
+            <h2 class="fw-bold" style="color: #e0b0ff;">🎮 Digital Etiquette Challenge</h2>
+            <p class="lead" style="color: #b19cd9;">Test your knowledge by choosing the correct response to real-world scenarios!</p>
           </div>
         </div>
-        
-        <div>
-          <button onclick="resetGame()">Reset Game</button>
-          <button onclick="showStats()">View Detailed Stats</button>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          
+          <!-- Game Stats -->
+          <div class="game-stats">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 style="color: #e0b0ff; margin: 0;">Score: <span id="gameScore">0</span> / <span id="gameTotal">12</span></h5>
+                <p style="color: #b19cd9; margin: 0; font-size: 0.9rem;">Percentage: <span id="gamePercentage">0</span>%</p>
+              </div>
+              <div>
+                <span style="color: #b19cd9; font-size: 0.9rem;">Scenario <span id="scenarioNumber">1</span> of <span id="totalScenarios">12</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scenario Card -->
+          <div class="scenario-card">
+            <h4>Scenario <span id="currentScenario">1</span></h4>
+            <div class="scenario-text" id="scenarioText">
+              Loading scenario...
+            </div>
+
+            <div id="optionsContainer">
+              <button class="option-btn" id="optionA" onclick="selectOption('A')">
+                <strong>Option A:</strong> <span id="optionAText"></span>
+              </button>
+              <button class="option-btn" id="optionB" onclick="selectOption('B')">
+                <strong>Option B:</strong> <span id="optionBText"></span>
+              </button>
+            </div>
+
+            <!-- Feedback Box -->
+            <div class="feedback-box" id="feedbackBox">
+              <h5 id="feedbackTitle"></h5>
+              <p id="feedbackText"></p>
+              <p id="explanationText"></p>
+              <button class="btn-custom mt-3" id="nextScenarioBtn" onclick="nextScenario()">Next Scenario →</button>
+            </div>
+          </div>
+
+          <!-- Game Controls -->
+          <div class="text-center mt-4">
+            <button class="btn-custom" onclick="resetGame()">Reset Game</button>
+          </div>
+
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Statistics Section -->
-    <section id="statsSection" style="display: none;">
-      <h2>📈 Detailed Statistics</h2>
-      <div id="statsContent"></div>
-      <button onclick="hideStats()">Hide Stats</button>
-    </section>
+  </div>
 
-    <!-- Achievement Section -->
-    <section>
-      <h2>🏆 Achievements</h2>
-      <div id="achievements">
-        <p>Complete challenges to unlock achievements!</p>
-        <ul id="achievementsList"></ul>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Code Geass - InterLearn. Empowering digital safety and learning in Africa.</p>
+  <!-- Footer -->
+  <footer class="text-center py-4 mt-5" style="background: rgba(5, 10, 20, 0.8);">
+    <p class="mb-0" style="color: #b19cd9;">© 2025 Code Geass - InterLearn | Empowering digital safety and learning</p>
   </footer>
 
-  <script>
-    // Game Data
-    const scenarios = [
-      {
-        scenario: "You receive a friend request from someone you don't know who has no profile picture. What should you do?",
-        optionA: "Accept the request to be friendly",
-        optionB: "Decline the request and don't engage",
-        correct: "B",
-        explanation: "Correct! It's safer to only accept friend requests from people you know in real life. Unknown profiles with no pictures are often fake accounts or potential scammers."
-      },
-      {
-        scenario: "Your friend shares a funny but embarrassing photo of you without asking. How should you respond?",
-        optionA: "Post an embarrassing photo of them in revenge",
-        optionB: "Politely ask them to remove it and explain why it bothers you",
-        correct: "B",
-        explanation: "Correct! Direct, respectful communication is always better than retaliation. Your friend may not have realized the photo bothered you."
-      },
-      {
-        scenario: "You see a heated political argument in a WhatsApp group chat. What's the best approach?",
-        optionA: "Jump in with your opinion to set everyone straight",
-        optionB: "Stay out of it or suggest taking the discussion private",
-        correct: "B",
-        explanation: "Correct! Public political arguments rarely change minds and often damage relationships. It's better to avoid these discussions in group settings."
-      },
-      {
-        scenario: "Someone sends you a voice note at 2 AM. When should you respond?",
-        optionA: "Immediately, even if it wakes others up",
-        optionB: "At a reasonable hour unless it's clearly an emergency",
-        correct: "B",
-        explanation: "Correct! Respecting others' sleep and personal time is important. Non-urgent messages can wait until normal hours."
-      },
-      {
-        scenario: "You want to share a news article that sounds shocking. What should you do first?",
-        optionA: "Share it immediately to warn your friends",
-        optionB: "Verify the information from reliable sources first",
-        correct: "B",
-        explanation: "Correct! Always fact-check before sharing news, especially shocking stories. Misinformation spreads quickly and can cause real harm."
-      },
-      {
-        scenario: "A classmate is being cyberbullied in your class WhatsApp group. What's the right action?",
-        optionA: "Stay quiet to avoid becoming a target yourself",
-        optionB: "Speak up in support of the victim and report the behavior",
-        correct: "B",
-        explanation: "Correct! Standing up to bullying shows courage and helps create a safer environment for everyone. Your support can make a real difference."
-      },
-      {
-        scenario: "You're angry about a grade and want to email your teacher. What should you do?",
-        optionA: "Write and send the email while you're upset to express your feelings",
-        optionB: "Wait until you're calm, then write a respectful, constructive email",
-        correct: "B",
-        explanation: "Correct! Emotional emails often make situations worse. Taking time to cool down helps you communicate more effectively and maintain good relationships."
-      },
-      {
-        scenario: "Someone tags you in a post about a party you weren't at. How do you handle this?",
-        optionA: "Leave the tag since it's not a big deal",
-        optionB: "Ask them to remove the tag and clarify you weren't there",
-        correct: "B",
-        explanation: "Correct! Being tagged in false information can damage your reputation. It's important to correct misrepresentations about yourself."
-      },
-      {
-        scenario: "You found a perfect meme online for your presentation. What should you do?",
-        optionA: "Use it without credit since memes are public",
-        optionB: "Give credit to the original creator or find royalty-free alternatives",
-        correct: "B",
-        explanation: "Correct! Even memes have creators who deserve credit. Using others' work without permission or attribution is plagiarism."
-      },
-      {
-        scenario: "Your ex-partner posts something negative about your relationship. How should you respond?",
-        optionA: "Post your side of the story publicly to defend yourself",
-        optionB: "Take the high road and address it privately if necessary",
-        correct: "B",
-        explanation: "Correct! Public relationship drama rarely ends well and can damage both parties' reputations. Private communication or simply moving on is usually better."
-      },
-      {
-        scenario: "You accidentally send a private message meant for your friend to your family group chat. What do you do?",
-        optionA: "Quickly delete it and pretend it didn't happen",
-        optionB: "Acknowledge the mistake and apologize briefly",
-        correct: "B",
-        explanation: "Correct! Honest acknowledgment of mistakes shows maturity and helps maintain trust. Trying to hide obvious errors often makes things worse."
-      },
-      {
-        scenario: "A stranger in an online game asks for your real name and school. What's your response?",
-        optionA: "Share the information since you're having fun playing together",
-        optionB: "Keep personal information private and don't share details",
-        correct: "B",
-        explanation: "Correct! Never share personal information with strangers online, even if they seem friendly. This information can be used to harm you."
-      }
-    ];
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    // Game State
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let totalQuestions = 0;
-    let gameStats = {
-      correctAnswers: [],
-      incorrectAnswers: [],
-      topicsStruggled: [],
-      achievements: []
-    };
+  <!-- External JS -->
+  <script src="digital-etiquette.js"></script>
 
-    // Initialize game
-    function initGame() {
-      shuffleArray(scenarios);
-      loadQuestion();
-      updateDisplay();
-    }
-
-    // Shuffle array function
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-    }
-
-    // Load current question
-    function loadQuestion() {
-      if (currentQuestionIndex >= scenarios.length) {
-        endGame();
-        return;
-      }
-
-      const question = scenarios[currentQuestionIndex];
-      document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
-      document.getElementById('scenarioText').textContent = question.scenario;
-      document.getElementById('optionAText').textContent = question.optionA;
-      document.getElementById('optionBText').textContent = question.optionB;
-      
-      // Reset UI
-      document.getElementById('feedback').style.display = 'none';
-      document.getElementById('optionA').disabled = false;
-      document.getElementById('optionB').disabled = false;
-      document.getElementById('optionA').style.backgroundColor = '';
-      document.getElementById('optionB').style.backgroundColor = '';
-    }
-
-    // Handle answer selection
-    function selectAnswer(selectedOption) {
-      const question = scenarios[currentQuestionIndex];
-      const isCorrect = selectedOption === question.correct;
-      
-      totalQuestions++;
-      
-      if (isCorrect) {
-        score++;
-        gameStats.correctAnswers.push(currentQuestionIndex);
-        document.getElementById('feedbackText').innerHTML = '✅ Correct! Well done!';
-        document.getElementById('feedbackText').style.color = 'green';
-      } else {
-        gameStats.incorrectAnswers.push(currentQuestionIndex);
-        document.getElementById('feedbackText').innerHTML = '❌ Not quite right. Let\'s learn from this!';
-        document.getElementById('feedbackText').style.color = 'red';
-      }
-      
-      // Show correct answer visually
-      if (question.correct === 'A') {
-        document.getElementById('optionA').style.backgroundColor = 'lightgreen';
-        if (selectedOption === 'B') {
-          document.getElementById('optionB').style.backgroundColor = 'lightcoral';
-        }
-      } else {
-        document.getElementById('optionB').style.backgroundColor = 'lightgreen';
-        if (selectedOption === 'A') {
-          document.getElementById('optionA').style.backgroundColor = 'lightcoral';
-        }
-      }
-      
-      // Disable buttons and show feedback
-      document.getElementById('optionA').disabled = true;
-      document.getElementById('optionB').disabled = true;
-      document.getElementById('explanationText').textContent = question.explanation;
-      document.getElementById('feedback').style.display = 'block';
-      
-      updateDisplay();
-      checkAchievements();
-    }
-
-    // Load next question
-    function nextQuestion() {
-      currentQuestionIndex++;
-      loadQuestion();
-    }
-
-    // Update score display
-    function updateDisplay() {
-      document.getElementById('score').textContent = score;
-      document.getElementById('totalQuestions').textContent = totalQuestions;
-      
-      const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
-      document.getElementById('percentage').textContent = percentage;
-      
-      // Update level based on performance
-      let level = 'Beginner';
-      if (percentage >= 90) level = 'Digital Etiquette Expert';
-      else if (percentage >= 80) level = 'Advanced';
-      else if (percentage >= 70) level = 'Intermediate';
-      else if (percentage >= 60) level = 'Developing';
-      
-      document.getElementById('level').textContent = level;
-    }
-
-    // Check for achievements
-    function checkAchievements() {
-      const achievements = [];
-      const percentage = totalQuestions > 0 ? (score / totalQuestions) * 100 : 0;
-      
-      if (score >= 1 && !gameStats.achievements.includes('first_correct')) {
-        achievements.push('🎯 First Correct Answer!');
-        gameStats.achievements.push('first_correct');
-      }
-      
-      if (score >= 5 && !gameStats.achievements.includes('five_correct')) {
-        achievements.push('🌟 5 Correct Answers!');
-        gameStats.achievements.push('five_correct');
-      }
-      
-      if (percentage >= 100 && totalQuestions >= 5 && !gameStats.achievements.includes('perfect_score')) {
-        achievements.push('💯 Perfect Score!');
-        gameStats.achievements.push('perfect_score');
-      }
-      
-      if (totalQuestions >= 10 && !gameStats.achievements.includes('persistent')) {
-        achievements.push('🏃 Persistent Learner - 10 Questions!');
-        gameStats.achievements.push('persistent');
-      }
-      
-      if (percentage >= 80 && totalQuestions >= 5 && !gameStats.achievements.includes('expert')) {
-        achievements.push('🎓 Digital Etiquette Expert!');
-        gameStats.achievements.push('expert');
-      }
-      
-      // Display new achievements
-      if (achievements.length > 0) {
-        updateAchievements();
-      }
-    }
-
-    // Update achievements display
-    function updateAchievements() {
-      const achievementsList = document.getElementById('achievementsList');
-      achievementsList.innerHTML = '';
-      
-      if (gameStats.achievements.length === 0) {
-        achievementsList.innerHTML = '<li>No achievements yet - keep playing!</li>';
-      } else {
-        const achievementTexts = {
-          'first_correct': '🎯 First Correct Answer!',
-          'five_correct': '🌟 5 Correct Answers!',
-          'perfect_score': '💯 Perfect Score!',
-          'persistent': '🏃 Persistent Learner - 10 Questions!',
-          'expert': '🎓 Digital Etiquette Expert!'
-        };
-        
-        gameStats.achievements.forEach(achievement => {
-          const li = document.createElement('li');
-          li.textContent = achievementTexts[achievement];
-          achievementsList.appendChild(li);
-        });
-      }
-    }
-
-    // End game
-    function endGame() {
-      const percentage = (score / totalQuestions) * 100;
-      let message = `🎉 Game Complete!\n\nFinal Score: ${score}/${totalQuestions} (${percentage.toFixed(1)}%)\n\n`;
-      
-      if (percentage >= 90) {
-        message += "Outstanding! You're a digital etiquette expert! 🏆";
-      } else if (percentage >= 80) {
-        message += "Excellent work! You have strong digital etiquette skills! 🌟";
-      } else if (percentage >= 70) {
-        message += "Good job! You're developing solid digital etiquette habits! 👍";
-      } else if (percentage >= 60) {
-        message += "Nice effort! Keep practicing to improve your digital etiquette! 📚";
-      } else {
-        message += "Keep learning! Review the information section to strengthen your digital etiquette knowledge! 💪";
-      }
-      
-      alert(message);
-    }
-
-    // Reset game
-    function resetGame() {
-      if (confirm('Are you sure you want to reset your progress?')) {
-        currentQuestionIndex = 0;
-        score = 0;
-        totalQuestions = 0;
-        gameStats = {
-          correctAnswers: [],
-          incorrectAnswers: [],
-          topicsStruggled: [],
-          achievements: gameStats.achievements // Keep achievements
-        };
-        shuffleArray(scenarios);
-        loadQuestion();
-        updateDisplay();
-      }
-    }
-
-    // Show detailed statistics
-    function showStats() {
-      const percentage = totalQuestions > 0 ? (score / totalQuestions) * 100 : 0;
-      const statsContent = document.getElementById('statsContent');
-      
-      let html = `
-        <h3>Performance Overview</h3>
-        <p><strong>Questions Answered:</strong> ${totalQuestions}</p>
-        <p><strong>Correct Answers:</strong> ${score}</p>
-        <p><strong>Incorrect Answers:</strong> ${totalQuestions - score}</p>
-        <p><strong>Success Rate:</strong> ${percentage.toFixed(1)}%</p>
-        
-        <h3>Areas of Strength</h3>
-      `;
-      
-      if (gameStats.correctAnswers.length > 0) {
-        html += '<ul>';
-        gameStats.correctAnswers.forEach(index => {
-          html += `<li>✅ ${scenarios[index].scenario.substring(0, 50)}...</li>`;
-        });
-        html += '</ul>';
-      } else {
-        html += '<p>Complete some questions to see your strengths!</p>';
-      }
-      
-      html += '<h3>Areas for Improvement</h3>';
-      
-      if (gameStats.incorrectAnswers.length > 0) {
-        html += '<ul>';
-        gameStats.incorrectAnswers.forEach(index => {
-          html += `<li>📝 ${scenarios[index].scenario.substring(0, 50)}...</li>`;
-        });
-        html += '</ul>';
-      } else {
-        html += '<p>Great job! No areas for improvement yet!</p>';
-      }
-      
-      statsContent.innerHTML = html;
-      document.getElementById('statsSection').style.display = 'block';
-    }
-
-    // Hide statistics
-    function hideStats() {
-      document.getElementById('statsSection').style.display = 'none';
-    }
-
-    // Initialize everything when page loads
-    window.onload = function() {
-      initGame();
-      updateAchievements();
-    };
-  </script>
-  <script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="fzVzg-S4dJzGU_iYSo5SR";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
 </body>
 </html>
-
-

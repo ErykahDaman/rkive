@@ -1,21 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Self-Help & Cybersecurity | Tech Mastery Hub</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LexiGuard | Code Geass - Self-Help & Resources</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    /* Core Styles */
+    body {
+      background: linear-gradient(135deg, #0f0c29 0%, #1a0f3a 50%, #24243e 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: linear-gradient(90deg, rgba(26, 10, 46, 0.95) 0%, rgba(45, 27, 78, 0.95) 100%);
+      padding: 15px 30px;
+      border-bottom: 2px solid rgba(138, 43, 226, 0.4);
+      box-shadow: 0 2px 10px rgba(138, 43, 226, 0.3);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #8a2be2 0%, #c77dff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #b19cd9;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #e0b0ff;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    .hero-section h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #8a2be2 0%, #c77dff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .hero-section p {
+      font-size: 1.3rem;
+      color: #b19cd9;
+    }
+
+    /* Card Styles */
+    .card-cyber {
+      background: linear-gradient(135deg, rgba(26, 10, 46, 0.9), rgba(45, 27, 78, 0.9));
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-cyber:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(138, 43, 226, 0.4);
+    }
+
+    /* Section Headers */
+    .section-header {
+      color: #e0b0ff;
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 40px 0 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(138, 43, 226, 0.3);
+    }
+
+    /* Quote Section */
+    .quote-section {
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(138, 43, 226, 0.1));
+      border: 2px solid rgba(138, 43, 226, 0.4);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .quote-text {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #e0b0ff;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    /* Button Styles */
+    .btn-custom {
+      background: linear-gradient(135deg, #8a2be2 0%, #9d4edd 100%);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+      background: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+    }
+
+    /* Helpline Cards */
+    .helpline-card {
+      background: rgba(138, 43, 226, 0.15);
+      border-left: 4px solid #8a2be2;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    .helpline-card h4 {
+      color: #e0b0ff;
+      margin-bottom: 10px;
+    }
+
+    .helpline-card .contact {
+      color: #34d399;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 5px 0;
+    }
+
+    .helpline-card .hours {
+      color: #b19cd9;
+      font-size: 0.9rem;
+    }
+
+    /* Book Cards */
+    .book-card {
+      background: rgba(26, 10, 46, 0.6);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 10px;
+      padding: 20px;
+      height: 100%;
+    }
+
+    .book-card .category {
+      background: rgba(138, 43, 226, 0.3);
+      color: #e0b0ff;
+      padding: 5px 15px;
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .book-card h4 {
+      color: #e0b0ff;
+      margin: 10px 0;
+    }
+
+    .book-card .author {
+      color: #b19cd9;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    /* Resource Cards */
+    .resource-card {
+      background: rgba(26, 10, 46, 0.6);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .resource-card:hover {
+      border-color: #8a2be2;
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+    }
+
+    .resource-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .resource-card h4 {
+      color: #e0b0ff;
+      margin-bottom: 10px;
+    }
+
+    .resource-type {
+      background: rgba(52, 211, 153, 0.2);
+      color: #34d399;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    /* Skill Tracker */
+    .skill-item {
+      background: rgba(26, 10, 46, 0.6);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .skill-name {
+      color: #e0b0ff;
+      font-weight: 600;
+    }
+
+    .skill-percentage {
+      color: #34d399;
+      font-weight: bold;
+    }
+
+    .skill-bar {
+      background: rgba(138, 43, 226, 0.2);
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .skill-progress {
+      background: linear-gradient(90deg, #8a2be2, #c77dff);
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .skill-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .skill-btn {
+      background: rgba(138, 43, 226, 0.3);
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      color: #e0b0ff;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .skill-btn:hover {
+      background: rgba(138, 43, 226, 0.5);
+    }
+
+    /* Emergency Banner */
+    .emergency-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+      border: 2px solid #ef4444;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .emergency-banner h3 {
+      color: #ef4444;
+      margin-bottom: 15px;
+    }
+
+    .emergency-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #fca5a5;
+      margin: 10px 0;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(5, 10, 20, 0.8);
+      padding: 30px 0;
+      margin-top: 50px;
+      text-align: center;
+      color: #b19cd9;
+    }
+
+    /* Tabs */
+    .tab-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(138, 43, 226, 0.3);
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      color: #b19cd9;
+      padding: 10px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #8a2be2 0%, #9d4edd 100%);
+      color: white;
+      box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
+
   <!-- Navbar -->
-   <header>
+  <header>
     <nav class="navbar d-flex justify-content-between align-items-center">
       <div class="logo">CODE GEASS</div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="interlearn.html">InterLearn</a></li>
         <li><a href="safecheck.html">SafeCheck</a></li>
-        <li><a href="lexiguard.html">LexiGuard</a></li>
+        <li><a href="lexiguard.html" class="active">LexiGuard</a></li>
         <li><a href="community.html">Community Hub</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -23,410 +376,206 @@
     </nav>
   </header>
 
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1>🛡️ LexiGuard Resource Hub</h1>
+      <p>Your comprehensive guide to cybersecurity resources, helplines, and self-help materials in Botswana</p>
+    </div>
+  </section>
 
-  <main>
-    <section class="hero-section">
-      <div class="container">
-        <h1>🛡️ Self-Help & Cybersecurity Mastery</h1>
-        <p>Build confidence, security skills, and digital resilience through curated resources</p>
-      </div>
-    </section>
+  <!-- Main Content -->
+  <div class="container my-5">
 
-    <div class="main-content">
-      <div class="container">
-        
-        <!-- Daily Motivation Section -->
-        <section class="motivation-section">
-          <h2>✨ Daily Tech Motivation</h2>
-          <p id="quote" class="quote-text">Loading quote...</p>
-          <button onclick="newQuote()" class="quote-btn">New Quote</button>
-        </section>
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+      <h3>🚨 Emergency Cybercrime Hotline</h3>
+      <p style="color: #e0e0e0;">If you're experiencing an active cyber attack or immediate threat:</p>
+      <div class="emergency-number">📞 998 (Botswana Police)</div>
+      <div class="emergency-number">📞 +267 395 5000 (DIS Cyber Unit)</div>
+    </div>
 
-        <!-- Cybersecurity Books Section -->
-        <section class="books-section">
-          <h2>🔐 Essential Cybersecurity & Tech Books</h2>
-          <div id="bookGrid" class="books-grid">
-            <!-- Books will be populated by JavaScript -->
+    <!-- Daily Motivation -->
+    <div class="quote-section">
+      <p class="quote-text" id="dailyQuote">Loading motivation...</p>
+      <button class="btn-custom" onclick="newQuote()">Get New Quote 🔄</button>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+      <button class="tab-btn active" onclick="showTab('helplines')">📞 Helplines</button>
+      <button class="tab-btn" onclick="showTab('books')">📚 Books</button>
+      <button class="tab-btn" onclick="showTab('audiobooks')">🎧 Audiobooks</button>
+      <button class="tab-btn" onclick="showTab('websites')">🌐 Websites</button>
+      <button class="tab-btn" onclick="showTab('apps')">📱 Apps</button>
+      <button class="tab-btn" onclick="showTab('skills')">📊 Skill Tracker</button>
+      <button class="tab-btn" onclick="showTab('podcasts')">🎙️ Podcasts</button>
+    </div>
+
+    <!-- Helplines Tab -->
+    <div id="helplines" class="tab-content active">
+      <h2 class="section-header">📞 Botswana Cybersecurity Helplines & Support</h2>
+      
+      <div class="row">
+        <div class="col-12">
+          <div class="helpline-card">
+            <h4>🏛️ Botswana Police Service - Cybercrime Unit</h4>
+            <p>Report cybercrimes, fraud, and online harassment</p>
+            <div class="contact">📞 +267 395 5000</div>
+            <div class="contact">📧 cybercrime@police.gov.bw</div>
+            <div class="hours">⏰ 24/7 Emergency Line</div>
           </div>
-        </section>
 
-        <!-- Articles Section -->
-        <section class="articles-section">
-          <h2>📰 Featured Learning Articles</h2>
-          <div id="articleGrid" class="articles-grid">
-            <!-- Articles will be populated by JavaScript -->
+          <div class="helpline-card">
+            <h4>🔐 Directorate of Intelligence and Security (DIS) - Cyber Unit</h4>
+            <p>National security cyber threats and major incidents</p>
+            <div class="contact">📞 +267 365 7000</div>
+            <div class="hours">⏰ Monday-Friday: 8:00 AM - 5:00 PM</div>
           </div>
-        </section>
 
-        <!-- Skills Tracker -->
-        <section class="skills-section">
-          <h2>📊 Personal Skill Tracker</h2>
-          <p>Track your progress in key cybersecurity and tech areas:</p>
-          <div id="skillTracker" class="skill-tracker">
-            <!-- Skills will be populated by JavaScript -->
+          <div class="helpline-card">
+            <h4>💳 Bank of Botswana - Financial Fraud Hotline</h4>
+            <p>Report banking fraud, card theft, and financial cybercrimes</p>
+            <div class="contact">📞 +267 360 6000</div>
+            <div class="contact">📧 fraud@bankofbotswana.bw</div>
+            <div class="hours">⏰ 24/7 for emergencies</div>
           </div>
-          <button onclick="resetProgress()" class="reset-btn">Reset All Progress</button>
-        </section>
 
-        <!-- Learning Resources -->
-        <section class="resources-section">
-          <h2>🎯 Hands-On Learning Resources</h2>
-          <div id="resourceGrid" class="resources-grid">
-            <!-- Resources will be populated by JavaScript -->
+          <div class="helpline-card">
+            <h4>📡 Botswana Communications Regulatory Authority (BOCRA)</h4>
+            <p>Report telecom fraud, SMS scams, and SIM swap attacks</p>
+            <div class="contact">📞 +267 395 7755</div>
+            <div class="contact">📧 info@bocra.org.bw</div>
+            <div class="hours">⏰ Monday-Friday: 7:30 AM - 4:30 PM</div>
           </div>
-        </section>
 
-        <!-- Motivational Podcasts & Videos -->
-        <section class="media-section">
-          <h2>🎥 Motivational Tech Content</h2>
-          <div id="mediaGrid" class="media-grid">
-            <!-- Media will be populated by JavaScript -->
+          <div class="helpline-card">
+            <h4>🏦 FNB Botswana Fraud Line</h4>
+            <p>24/7 fraud reporting for FNB customers</p>
+            <div class="contact">📞 16 510 (Toll-free)</div>
+            <div class="contact">📞 +267 361 6000</div>
+            <div class="hours">⏰ 24/7 Available</div>
           </div>
-        </section>
 
-        <!-- Career Tips -->
-        <section class="career-section">
-          <h2>💼 Cybersecurity Career Tips</h2>
-          <div id="careerTips" class="career-tips">
-            <!-- Career tips will be populated by JavaScript -->
+          <div class="helpline-card">
+            <h4>🏦 Standard Chartered Botswana Security</h4>
+            <p>Report suspicious transactions and card fraud</p>
+            <div class="contact">📞 +267 361 5900</div>
+            <div class="hours">⏰ 24/7 Emergency</div>
           </div>
-        </section>
 
-        <!-- Back Navigation -->
-        <div class="back-navigation">
-          <a href="interlearn.html" class="back-btn">← Back to InterLearn</a>
+          <div class="helpline-card">
+            <h4>🏦 ABSA Botswana Fraud Hotline</h4>
+            <p>Immediate fraud reporting for ABSA customers</p>
+            <div class="contact">📞 0800 600 585 (Toll-free)</div>
+            <div class="hours">⏰ 24/7 Available</div>
+          </div>
+
+          <div class="helpline-card">
+            <h4>📱 Orange Botswana Customer Protection</h4>
+            <p>Mobile fraud, SIM swap, and airtime theft</p>
+            <div class="contact">📞 146 (From Orange)</div>
+            <div class="contact">📞 +267 395 0000</div>
+            <div class="hours">⏰ 24/7 Support</div>
+          </div>
+
+          <div class="helpline-card">
+            <h4>📱 Mascom Wireless Security Line</h4>
+            <p>Report mobile money fraud and SIM issues</p>
+            <div class="contact">📞 145 (From Mascom)</div>
+            <div class="contact">📞 +267 390 0000</div>
+            <div class="hours">⏰ 24/7 Available</div>
+          </div>
+
+          <div class="helpline-card">
+            <h4>📱 BTC Mobile Security Desk</h4>
+            <p>Technical support and security concerns</p>
+            <div class="contact">📞 +267 395 2222</div>
+            <div class="hours">⏰ Monday-Sunday: 7:00 AM - 9:00 PM</div>
+          </div>
+
+          <div class="helpline-card">
+            <h4>🎓 University of Botswana - IT Security Office</h4>
+            <p>Student and staff cybersecurity support</p>
+            <div class="contact">📧 itsecurity@ub.ac.bw</div>
+            <div class="contact">📞 +267 355 2779</div>
+            <div class="hours">⏰ Monday-Friday: 7:30 AM - 4:30 PM</div>
+          </div>
+
+          <div class="helpline-card">
+            <h4>👥 Botswana Child Protection Services (Online Safety)</h4>
+            <p>Report child exploitation, cyberbullying, and online predators</p>
+            <div class="contact">📞 0800 600 100 (Toll-free)</div>
+            <div class="contact">📞 +267 363 5595</div>
+            <div class="hours">⏰ 24/7 Childline</div>
+          </div>
+
+          <div class="helpline-card">
+            <h4>👨‍💼 Consumer Protection Unit - Ministry of Investment, Trade and Industry</h4>
+            <p>E-commerce fraud and online shopping scams</p>
+            <div class="contact">📞 +267 360 4100</div>
+            <div class="contact">📧 consumer@gov.bw</div>
+            <div class="hours">⏰ Monday-Friday: 7:30 AM - 4:30 PM</div>
+          </div>
         </div>
-
       </div>
     </div>
-  </main>
 
-  <script>
-    // Motivational quotes focused on cybersecurity and tech learning
-    const quotes = [
-      "The best defense against cyber threats is continuous learning and vigilance. 🛡️",
-      "Every security expert was once a beginner who refused to give up. 💪",
-      "In cybersecurity, paranoia is just good thinking. Stay curious, stay secure. 🔍",
-      "Your network's security is only as strong as your weakest link - make every link strong. ⛓️",
-      "The hacker mindset: If you can't break it, you don't understand it well enough. 🧠",
-      "Privacy is not about hiding something; it's about protecting everything. 🔒",
-      "Today's vulnerability is tomorrow's exploit. Keep learning, keep patching. ⚡",
-      "In the world of cybersecurity, the learning never stops - and that's the beauty of it. 📚",
-      "Think like an attacker, defend like a guardian. 🏰",
-      "Security is not a product, but a process - and you're part of that process. ⚙️"
-    ];
+    <!-- Books Tab -->
+    <div id="books" class="tab-content">
+      <h2 class="section-header">📚 Essential Cybersecurity Books</h2>
+      <div class="row" id="booksContainer"></div>
+    </div>
 
-    // Cybersecurity and tech self-help books
-    const books = [
-      {
-        title: "The Art of Invisibility",
-        author: "Kevin Mitnick",
-        description: "Learn from the world's most famous hacker how to protect your privacy and security in the digital age.",
-        category: "Privacy & Security"
-      },
-      {
-        title: "Tribe of Hackers",
-        author: "Marcus J. Carey",
-        description: "Insights and advice from 70+ cybersecurity professionals on building a career in security.",
-        category: "Career Development"
-      },
-      {
-        title: "The Cybersecurity Playbook",
-        author: "Allison Cerra",
-        description: "Essential strategies for building and maintaining a strong security program.",
-        category: "Strategy & Management"
-      },
-      {
-        title: "Ghost in the Wires",
-        author: "Kevin Mitnick",
-        description: "The thrilling memoir of the world's most wanted computer hacker and his journey to redemption.",
-        category: "Biography & Inspiration"
-      },
-      {
-        title: "Security Engineering",
-        author: "Ross Anderson",
-        description: "A comprehensive guide to building dependable distributed systems and security architecture.",
-        category: "Technical Deep-dive"
-      },
-      {
-        title: "The Phoenix Project",
-        author: "Gene Kim",
-        description: "A novel about IT, DevOps, and helping your business win through security and efficiency.",
-        category: "DevSecOps"
-      },
-      {
-        title: "Sandworm",
-        author: "Andy Greenberg",
-        description: "The gripping story of cyberwar and how it's reshaping global conflict.",
-        category: "Cyber Warfare"
-      },
-      {
-        title: "Click Here to Kill Everybody",
-        author: "Bruce Schneier",
-        description: "Security and survival in a hyper-connected world - essential reading for digital citizens.",
-        category: "Digital Society"
-      }
-    ];
+    <!-- Audiobooks Tab -->
+    <div id="audiobooks" class="tab-content">
+      <h2 class="section-header">🎧 Cybersecurity Audiobooks</h2>
+      <div class="row" id="audiobooksContainer"></div>
+    </div>
 
-    // Featured articles
-    const articles = [
-      {
-        title: "Building Confidence in Cybersecurity Interviews",
-        description: "Master the art of showcasing your security knowledge and problem-solving skills in technical interviews.",
-        readTime: "8 min read"
-      },
-      {
-        title: "Overcoming Impostor Syndrome in Tech",
-        description: "Every expert was once a beginner. Learn strategies to build confidence and recognize your growing expertise.",
-        readTime: "6 min read"
-      },
-      {
-        title: "Creating Your Personal Cybersecurity Lab",
-        description: "Step-by-step guide to building a home lab for hands-on security practice and skill development.",
-        readTime: "12 min read"
-      },
-      {
-        title: "The Growth Mindset for Security Professionals",
-        description: "How to stay motivated and continue learning in the rapidly evolving field of cybersecurity.",
-        readTime: "7 min read"
-      },
-      {
-        title: "Networking in Cybersecurity: Building Professional Relationships",
-        description: "Strategic approaches to building meaningful connections in the cybersecurity community.",
-        readTime: "10 min read"
-      },
-      {
-        title: "From Help Desk to CISO: Career Progression in Security",
-        description: "Real pathways and milestone skills for advancing your cybersecurity career.",
-        readTime: "15 min read"
-      }
-    ];
+    <!-- Websites Tab -->
+    <div id="websites" class="tab-content">
+      <h2 class="section-header">🌐 Recommended Cybersecurity Websites</h2>
+      <div id="websitesContainer"></div>
+    </div>
 
-    // Skills to track
-    const skills = [
-      "Network Security Fundamentals",
-      "Ethical Hacking & Penetration Testing", 
-      "Incident Response & Forensics",
-      "Risk Assessment & Management",
-      "Cryptography & PKI",
-      "Security Architecture & Design",
-      "Compliance & Governance",
-      "Cloud Security",
-      "Programming for Security",
-      "Social Engineering Awareness"
-    ];
+    <!-- Apps Tab -->
+    <div id="apps" class="tab-content">
+      <h2 class="section-header">📱 Recommended Security Apps</h2>
+      <div class="row" id="appsContainer"></div>
+    </div>
 
-    // Learning resources
-    const resources = [
-      {
-        title: "🏆 HackTheBox",
-        description: "Hands-on penetration testing labs and challenges to sharpen your hacking skills.",
-        type: "Practice Platform"
-      },
-      {
-        title: "🎯 TryHackMe",
-        description: "Beginner-friendly cybersecurity training with guided learning paths.",
-        type: "Learning Platform"
-      },
-      {
-        title: "🔬 OWASP WebGoat",
-        description: "Deliberately insecure web application for learning web security testing.",
-        type: "Training Tool"
-      },
-      {
-        title: "📜 SANS Reading Room",
-        description: "Free white papers and research on cutting-edge security topics.",
-        type: "Research Repository"
-      },
-      {
-        title: "🛡️ NIST Cybersecurity Framework",
-        description: "Industry-standard framework for improving cybersecurity posture.",
-        type: "Framework & Standards"
-      },
-      {
-        title: "🐧 Kali Linux Training",
-        description: "Master the premier penetration testing distribution and its tools.",
-        type: "Technical Training"
-      }
-    ];
+    <!-- Skills Tab -->
+    <div id="skills" class="tab-content">
+      <h2 class="section-header">📊 Personal Skill Tracker</h2>
+      <p style="color: #b19cd9; margin-bottom: 20px;">Track your progress in key cybersecurity areas:</p>
+      <div id="skillTracker"></div>
+      <button class="btn-custom mt-3" onclick="resetProgress()">Reset All Progress</button>
+    </div>
 
-    // Media content
-    const mediaContent = [
-      {
-        title: "🎙️ Darknet Diaries Podcast",
-        description: "True stories from the dark side of the internet - both educational and thrilling.",
-        type: "Podcast"
-      },
-      {
-        title: "📺 'The Art of Human Hacking' - Christopher Hadnagy",
-        description: "TEDx talk on social engineering and human psychology in security.",
-        type: "TED Talk"
-      },
-      {
-        title: "🎧 Security Now Podcast",
-        description: "Steve Gibson's weekly deep-dive into security news and concepts.",
-        type: "Podcast"
-      },
-      {
-        title: "📹 Professor Messer's Security+ Training",
-        description: "Free, comprehensive CompTIA Security+ training videos.",
-        type: "Video Series"
-      },
-      {
-        title: "🎤 CyberWire Daily Briefing",
-        description: "Daily cybersecurity news and analysis to stay current with threats.",
-        type: "News Podcast"
-      }
-    ];
+    <!-- Podcasts Tab -->
+    <div id="podcasts" class="tab-content">
+      <h2 class="section-header">🎙️ Educational Podcasts & Media</h2>
+      <div class="row" id="podcastsContainer"></div>
+    </div>
 
-    // Career tips
-    const careerTips = [
-      {
-        title: "Start with Certifications",
-        tip: "Begin with Security+ or CySA+ to build foundational knowledge and credibility."
-      },
-      {
-        title: "Practice Ethical Hacking",
-        tip: "Use legal platforms like HackTheBox to develop hands-on penetration testing skills."
-      },
-      {
-        title: "Build a Security Portfolio",
-        tip: "Document your projects, writeups, and contributions to open-source security tools."
-      },
-      {
-        title: "Join Security Communities",
-        tip: "Engage with local OWASP chapters, DefCon groups, and online security forums."
-      },
-      {
-        title: "Stay Current with Threats",
-        tip: "Follow threat intelligence feeds and security blogs to understand evolving attack vectors."
-      },
-      {
-        title: "Master the Fundamentals",
-        tip: "Deep knowledge of networking, operating systems, and programming is essential."
-      }
-    ];
+    <!-- Back Button -->
+    <div class="text-center my-5">
+      <a href="index.html" class="btn-custom">← Back to Home</a>
+    </div>
 
-    // Initialize the page
-    function init() {
-      displayQuote();
-      populateBooks();
-      populateArticles();
-      initializeSkillTracker();
-      populateResources();
-      populateMedia();
-      populateCareerTips();
-    }
+  </div>
 
-    function displayQuote() {
-      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-      document.getElementById('quote').innerText = randomQuote;
-    }
+  <!-- Footer -->
+  <footer>
+    <p class="mb-2">© 2025 Code Geass - LexiGuard | Empowering Cybersecurity in Botswana 🇧🇼</p>
+    <p class="mb-0">In case of emergency, always call 998 (Botswana Police) or 997 (Emergency Services)</p>
+  </footer>
 
-    function newQuote() {
-      displayQuote();
-    }
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="lexiguard.js"></script>
 
-    function populateBooks() {
-      const bookGrid = document.getElementById('bookGrid');
-      bookGrid.innerHTML = books.map(book => `
-        <div class="book-card">
-          <div class="book-category">${book.category}</div>
-          <h3 class="book-title">${book.title}</h3>
-          <p class="book-author">by ${book.author}</p>
-          <p class="book-description">${book.description}</p>
-        </div>
-      `).join('');
-    }
-
-    function populateArticles() {
-      const articleGrid = document.getElementById('articleGrid');
-      articleGrid.innerHTML = articles.map(article => `
-        <div class="article-card" onclick="alert('This would open the full article: ${article.title}')">
-          <h3 class="article-title">${article.title}</h3>
-          <p class="article-description">${article.description}</p>
-          <span class="article-time">${article.readTime}</span>
-        </div>
-      `).join('');
-    }
-
-    function initializeSkillTracker() {
-      const skillTracker = document.getElementById('skillTracker');
-      skillTracker.innerHTML = skills.map((skill, index) => {
-        const progress = localStorage.getItem(`skill_${index}`) || 0;
-        return `
-          <div class="skill-item">
-            <div class="skill-header">
-              <span class="skill-name">${skill}</span>
-              <span class="skill-percentage">${progress}%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" style="width: ${progress}%;"></div>
-            </div>
-            <div class="skill-controls">
-              <button onclick="updateSkill(${index}, 10)" class="skill-btn skill-btn-add">+10%</button>
-              <button onclick="updateSkill(${index}, -10)" class="skill-btn skill-btn-remove">-10%</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function updateSkill(skillIndex, change) {
-      const currentProgress = parseInt(localStorage.getItem(`skill_${skillIndex}`) || 0);
-      const newProgress = Math.max(0, Math.min(100, currentProgress + change));
-      localStorage.setItem(`skill_${skillIndex}`, newProgress);
-      initializeSkillTracker();
-    }
-
-    function resetProgress() {
-      if (confirm('Are you sure you want to reset all skill progress?')) {
-        skills.forEach((_, index) => {
-          localStorage.removeItem(`skill_${index}`);
-        });
-        initializeSkillTracker();
-      }
-    }
-
-    function populateResources() {
-      const resourceGrid = document.getElementById('resourceGrid');
-      resourceGrid.innerHTML = resources.map(resource => `
-        <div class="resource-card">
-          <h3 class="resource-title">${resource.title}</h3>
-          <p class="resource-description">${resource.description}</p>
-          <span class="resource-type">${resource.type}</span>
-        </div>
-      `).join('');
-    }
-
-    function populateMedia() {
-      const mediaGrid = document.getElementById('mediaGrid');
-      mediaGrid.innerHTML = mediaContent.map(media => `
-        <div class="media-card">
-          <h3 class="media-title">${media.title}</h3>
-          <p class="media-description">${media.description}</p>
-          <span class="media-type">${media.type}</span>
-        </div>
-      `).join('');
-    }
-
-    function populateCareerTips() {
-      const careerTipsDiv = document.getElementById('careerTips');
-      careerTipsDiv.innerHTML = careerTips.map(tip => `
-        <div class="career-tip">
-          <h3 class="tip-title">💡 ${tip.title}</h3>
-          <p class="tip-content">${tip.tip}</p>
-        </div>
-      `).join('');
-    }
-
-    // Initialize when page loads
-    window.onload = init;
-  </script>
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="fzVzg-S4dJzGU_iYSo5SR";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
 </body>
 </html>
-
-

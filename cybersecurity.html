@@ -1,18 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cybersecurity & Privacy Module | InterLearn</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity & Privacy | Code Geass</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    /* Core Styles */
+    body {
+      background: linear-gradient(135deg, #0f0c29 0%, #1a0f3a 50%, #24243e 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: linear-gradient(90deg, rgba(26, 10, 46, 0.95) 0%, rgba(45, 27, 78, 0.95) 100%);
+      padding: 15px 30px;
+      border-bottom: 2px solid rgba(138, 43, 226, 0.4);
+      box-shadow: 0 2px 10px rgba(138, 43, 226, 0.3);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #8a2be2 0%, #c77dff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #b19cd9;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #e0b0ff;
+    }
+
+    /* Cards */
+    .card-cyber {
+      background: linear-gradient(135deg, rgba(26, 10, 46, 0.9), rgba(45, 27, 78, 0.9));
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Chapter Navigation */
+    .chapter-item {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .chapter-item:hover:not(.locked) {
+      background: rgba(138, 43, 226, 0.2);
+      border-left: 3px solid #8a2be2;
+      transform: translateX(5px);
+    }
+
+    .chapter-item.active {
+      background: linear-gradient(90deg, rgba(138, 43, 226, 0.4) 0%, rgba(138, 43, 226, 0.2) 100%);
+      border-left: 3px solid #e0b0ff;
+    }
+
+    .chapter-item.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .chapter-item.completed {
+      background: rgba(52, 211, 153, 0.1);
+    }
+
+    .chapter-icon {
+      font-size: 1rem;
+      margin-right: 8px;
+    }
+
+    .chapter-title {
+      font-size: 0.9rem;
+      color: #e0b0ff;
+    }
+
+    /* Buttons */
+    .btn-custom {
+      background: linear-gradient(135deg, #8a2be2 0%, #9d4edd 100%);
+      border: none;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
+      cursor: pointer;
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+      background: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+    }
+
+    /* Progress Bar */
+    .progress {
+      height: 25px;
+      background: rgba(138, 43, 226, 0.1);
+      border-radius: 15px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .progress-bar {
+      background: linear-gradient(90deg, #8a2be2, #a78bfa);
+      border-radius: 15px;
+      transition: width 0.5s ease;
+    }
+
+    /* Content Boxes */
+    .concept-box {
+      background: rgba(138, 43, 226, 0.15);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 8px;
+      border-left: 4px solid #8a2be2;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .alert-box {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      border-radius: 8px;
+      border-left: 4px solid #f43f5e;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .success-box {
+      background: rgba(52, 211, 153, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-radius: 8px;
+      border-left: 4px solid #34d399;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    /* Quiz Styles */
+    .quiz-form {
+      background: rgba(26, 10, 46, 0.5);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .question-block {
+      background: rgba(138, 43, 226, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(138, 43, 226, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .form-check-input:checked {
+      background-color: #8a2be2;
+      border-color: #8a2be2;
+    }
+
+    .quiz-feedback {
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .quiz-feedback.correct {
+      background: rgba(52, 211, 153, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.5);
+      color: #34d399;
+    }
+
+    .quiz-feedback.incorrect {
+      background: rgba(244, 63, 94, 0.2);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: #f43f5e;
+    }
+
+    /* Game Section */
+    .game-section {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .game-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      color: #000;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .game-card h4 {
+      color: #8a2be2;
+      margin-bottom: 16px;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 12px;
+      background: rgba(139, 92, 246, 0.15);
+      border: 2px solid rgba(139, 92, 246, 0.4);
+      color: #8a2be2;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(139, 92, 246, 0.3);
+      border-color: #8a2be2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+    }
+
+    .option-btn.correct {
+      background: rgba(52, 211, 153, 0.2);
+      border-color: #34d399;
+      color: #059669;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: #f43f5e;
+      color: #dc2626;
+    }
+
+    .password-input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid rgba(138, 43, 226, 0.3);
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .strength-meter {
+      height: 10px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+
+    .strength-fill {
+      height: 100%;
+      transition: width 0.3s, background 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Navbar -->
   <header>
     <nav class="navbar d-flex justify-content-between align-items-center">
       <div class="logo">CODE GEASS</div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="interlearn.html">InterLearn</a></li>
+        <li><a href="interlearn.html" class="active">InterLearn</a></li>
         <li><a href="safecheck.html">SafeCheck</a></li>
         <li><a href="lexiguard.html">LexiGuard</a></li>
         <li><a href="community.html">Community Hub</a></li>
@@ -22,579 +308,362 @@
     </nav>
   </header>
 
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="fzVzg-S4dJzGU_iYSo5SR";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
-
-  <main>
-    <section>
-      <h1>🔒 Cybersecurity & Data Privacy Learning Module</h1>
-      <p>Master the essential skills to protect your personal information and stay safe in the digital world!</p>
-    </section>
-
-    <!-- Educational Section -->
-    <section>
-      <h2>📚 Learn About Cybersecurity & Data Privacy</h2>
-      
-      <h3>What is Cybersecurity?</h3>
-      <p>Cybersecurity is the practice of protecting your devices, networks, and data from digital attacks, theft, and damage. In today's connected world, cybersecurity knowledge is essential for everyone.</p>
-      
-      <h3>🛡️ Core Cybersecurity Concepts</h3>
-      
-      <h4>1. Password Security</h4>
-      <p><strong>Why it matters:</strong> Weak passwords are the #1 way hackers gain access to accounts. Over 80% of data breaches involve weak or stolen passwords.</p>
-      <p><strong>Best practices:</strong></p>
-      <ul>
-        <li><strong>Length:</strong> Use at least 12 characters (longer is better)</li>
-        <li><strong>Complexity:</strong> Mix uppercase, lowercase, numbers, and symbols</li>
-        <li><strong>Uniqueness:</strong> Never reuse passwords across accounts</li>
-        <li><strong>Avoid personal info:</strong> Don't use names, birthdays, or common words</li>
-        <li><strong>Example of strong password:</strong> M0rningCoffee@7AM! (but don't use this one!)</li>
-      </ul>
-      
-      <h4>2. Two-Factor Authentication (2FA)</h4>
-      <p><strong>What it is:</strong> An extra security layer that requires two forms of verification to access your account.</p>
-      <p><strong>How it works:</strong> Something you know (password) + something you have (phone/app)</p>
-      <p><strong>Types of 2FA:</strong></p>
-      <ul>
-        <li><strong>SMS codes:</strong> Text messages with temporary codes</li>
-        <li><strong>Authenticator apps:</strong> Google Authenticator, Authy (more secure)</li>
-        <li><strong>Hardware keys:</strong> Physical devices like YubiKey (most secure)</li>
-        <li><strong>Biometrics:</strong> Fingerprint or face recognition</li>
-      </ul>
-      
-      <h4>3. Phishing Attacks</h4>
-      <p><strong>What it is:</strong> Fraudulent attempts to steal your personal information through fake emails, websites, or messages.</p>
-      <p><strong>Common phishing tactics:</strong></p>
-      <ul>
-        <li><strong>Fake bank emails:</strong> "Your account is suspended, click here"</li>
-        <li><strong>Prize scams:</strong> "You've won! Claim your prize now"</li>
-        <li><strong>Urgent requests:</strong> "Update your password immediately"</li>
-        <li><strong>Fake social media:</strong> Friend requests from unknown people</li>
-      </ul>
-      <p><strong>How to spot phishing:</strong></p>
-      <ul>
-        <li>Check sender's email address carefully</li>
-        <li>Look for spelling and grammar errors</li>
-        <li>Hover over links to see real destinations</li>
-        <li>Be suspicious of urgent or threatening language</li>
-        <li>Verify requests through official channels</li>
-      </ul>
-      
-      <h4>4. Malware Protection</h4>
-      <p><strong>Types of malware:</strong></p>
-      <ul>
-        <li><strong>Viruses:</strong> Attach to files and spread when shared</li>
-        <li><strong>Ransomware:</strong> Encrypts your files and demands payment</li>
-        <li><strong>Spyware:</strong> Secretly monitors your activities</li>
-        <li><strong>Adware:</strong> Shows unwanted advertisements</li>
-        <li><strong>Trojans:</strong> Disguised as legitimate software</li>
-      </ul>
-      <p><strong>Protection strategies:</strong></p>
-      <ul>
-        <li>Keep operating system and software updated</li>
-        <li>Use reputable antivirus software</li>
-        <li>Don't download software from untrusted sources</li>
-        <li>Be cautious with email attachments</li>
-        <li>Regular backups of important data</li>
-      </ul>
-      
-      <h3>🔐 Data Privacy Fundamentals</h3>
-      
-      <h4>1. Personal Data Protection</h4>
-      <p><strong>What is personal data:</strong> Any information that can identify you - name, ID number, phone, email, location, photos, browsing history.</p>
-      <p><strong>Privacy risks:</strong></p>
-      <ul>
-        <li><strong>Identity theft:</strong> Using your info to impersonate you</li>
-        <li><strong>Financial fraud:</strong> Unauthorized access to bank accounts</li>
-        <li><strong>Social engineering:</strong> Using personal info to manipulate you</li>
-        <li><strong>Data broker sales:</strong> Companies selling your information</li>
-      </ul>
-      
-      <h4>2. Social Media Privacy</h4>
-      <p><strong>Privacy settings checklist:</strong></p>
-      <ul>
-        <li>Set profile to private/friends only</li>
-        <li>Turn off location sharing</li>
-        <li>Disable facial recognition</li>
-        <li>Review tagged photos before they appear</li>
-        <li>Limit who can search for you</li>
-        <li>Turn off ad tracking</li>
-      </ul>
-      <p><strong>Smart sharing practices:</strong></p>
-      <ul>
-        <li>Don't post your full birthdate</li>
-        <li>Avoid sharing travel plans in real-time</li>
-        <li>Don't post photos of important documents</li>
-        <li>Be careful about check-ins and location tags</li>
-        <li>Think before posting anything permanent</li>
-      </ul>
-      
-      <h4>3. Mobile Device Security</h4>
-      <p><strong>Essential mobile security:</strong></p>
-      <ul>
-        <li><strong>Screen lock:</strong> Use PIN, pattern, fingerprint, or face unlock</li>
-        <li><strong>App permissions:</strong> Only grant necessary permissions</li>
-        <li><strong>Official app stores:</strong> Download only from Google Play/App Store</li>
-        <li><strong>Wi-Fi security:</strong> Avoid public Wi-Fi for sensitive activities</li>
-        <li><strong>Remote wipe:</strong> Enable find-my-device features</li>
-      </ul>
-      
-      <h4>4. VPN (Virtual Private Network)</h4>
-      <p><strong>What it does:</strong> Creates a secure, encrypted connection between your device and the internet.</p>
-      <p><strong>Benefits:</strong></p>
-      <ul>
-        <li>Hides your IP address and location</li>
-        <li>Encrypts your internet traffic</li>
-        <li>Protects on public Wi-Fi</li>
-        <li>Can bypass geographical restrictions</li>
-        <li>Prevents ISP tracking</li>
-      </ul>
-      <p><strong>When to use VPN:</strong> Public Wi-Fi, sensitive transactions, privacy protection, accessing blocked content.</p>
-      
-      <h3>🚨 African-Specific Cyber Threats</h3>
-      
-      <h4>Mobile Money Fraud</h4>
-      <ul>
-        <li><strong>SIM swap attacks:</strong> Criminals steal your phone number</li>
-        <li><strong>Fake mobile money agents:</strong> Unauthorized payment points</li>
-        <li><strong>PIN harvesting:</strong> Tricks to get your mobile money PIN</li>
-        <li><strong>Protection:</strong> Never share PINs, verify agents, use official channels</li>
-      </ul>
-      
-      <h4>WhatsApp Scams</h4>
-      <ul>
-        <li><strong>Friend impersonation:</strong> "Help me, I'm in trouble"</li>
-        <li><strong>Fake job offers:</strong> "Earn money from home"</li>
-        <li><strong>Investment schemes:</strong> "Double your money"</li>
-        <li><strong>Protection:</strong> Verify through voice calls, be skeptical of urgent requests</li>
-      </ul>
-      
-      <h3>✅ Daily Cybersecurity Habits</h3>
-      <ul>
-        <li><strong>Morning:</strong> Check for overnight alerts or suspicious activities</li>
-        <li><strong>Before clicking:</strong> Verify sender and link destinations</li>
-        <li><strong>When connecting:</strong> Ensure Wi-Fi networks are secure</li>
-        <li><strong>Before downloading:</strong> Check app permissions and reviews</li>
-        <li><strong>Evening:</strong> Log out of sensitive accounts</li>
-        <li><strong>Weekly:</strong> Review account activities and privacy settings</li>
-        <li><strong>Monthly:</strong> Update passwords and software</li>
-      </ul>
-    </section>
-
-    <hr>
-
-    <!-- Gamified Learning Section -->
-    <section>
-      <h2>🎮 Cybersecurity Challenge Games</h2>
-      <p>Test your cybersecurity knowledge through interactive games and scenarios!</p>
-      
-      <div>
-        <h3>📊 Your Security Score</h3>
-        <p><strong>Overall Score:</strong> <span id="totalScore">0</span> points</p>
-        <p><strong>Games Completed:</strong> <span id="gamesCompleted">0</span> / 4</p>
-        <p><strong>Security Level:</strong> <span id="securityLevel">Beginner</span></p>
-      </div>
-
-      <!-- Game 1: Password Strength Tester -->
-      <div>
-        <h3>🔑 Game 1: Password Strength Challenge</h3>
-        <p>Test different passwords and learn what makes them strong or weak!</p>
-        <input type="text" id="passwordInput" placeholder="Enter a password to test" style="width: 300px; padding: 8px;">
-        <button onclick="testPassword()">Test Password Strength</button>
-        <div id="passwordResult" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc;"></div>
-        <p><strong>Challenge:</strong> Create a password that scores 80+ points!</p>
-        <button onclick="showPasswordTips()">Show Password Tips</button>
-        <div id="passwordTips" style="display: none; margin-top: 10px; padding: 10px; background-color: #f0f0f0;"></div>
-      </div>
-
-      <hr>
-
-      <!-- Game 2: Phishing Detective -->
-      <div>
-        <h3>🕵️ Game 2: Phishing Detective</h3>
-        <p>Can you spot the phishing attempts? Analyze these emails and messages!</p>
-        <div id="phishingGame">
-          <div id="phishingScenario"></div>
-          <button onclick="reportPhishing(true)">🚨 This is Phishing!</button>
-          <button onclick="reportPhishing(false)">✅ This is Legitimate</button>
-          <div id="phishingFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc;"></div>
-          <button onclick="nextPhishingScenario()">Next Email</button>
+  <!-- Course Header -->
+  <section class="container-fluid py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+          <h1 class="fw-bold" style="color: #e0b0ff;">🔒 Cybersecurity & Data Privacy</h1>
+          <p class="lead mb-0" style="color: #b19cd9;">Master essential skills to protect your personal information and stay safe online</p>
         </div>
-        <p><strong>Phishing Score:</strong> <span id="phishingScore">0</span> / <span id="phishingTotal">0</span></p>
-      </div>
-
-      <hr>
-
-      <!-- Game 3: Security Settings Optimizer -->
-      <div>
-        <h3>⚙️ Game 3: Security Settings Simulator</h3>
-        <p>Configure the optimal security settings for different scenarios!</p>
-        <div id="settingsGame">
-          <h4 id="settingsScenario">Loading scenario...</h4>
-          <div id="settingsOptions"></div>
-          <button onclick="submitSettings()">Apply Settings</button>
-          <div id="settingsFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc;"></div>
-        </div>
-        <p><strong>Settings Score:</strong> <span id="settingsScore">0</span> / <span id="settingsTotal">0</span></p>
-      </div>
-
-      <hr>
-
-      <!-- Game 4: Threat Response Simulator -->
-      <div>
-        <h3>🚨 Game 4: Cyber Threat Response</h3>
-        <p>You've encountered a cyber threat! Choose the best response quickly!</p>
-        <div id="threatGame">
-          <div id="threatScenario" style="padding: 15px; border: 2px solid #ff6b6b; background-color: #ffe0e0;"></div>
-          <div id="threatOptions"></div>
-          <div id="threatFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc;"></div>
-          <button onclick="nextThreatScenario()">Next Threat</button>
-        </div>
-        <p><strong>Response Score:</strong> <span id="threatScore">0</span> / <span id="threatTotal">0</span></p>
-      </div>
-
-      <!-- Achievement System -->
-      <div>
-        <h3>🏆 Cybersecurity Achievements</h3>
-        <div id="achievements">
-          <p>Complete games to unlock cybersecurity achievements!</p>
-          <ul id="achievementsList"></ul>
+        <div>
+          <a href="interlearn.html" class="btn-custom"><span>← Back to InterLearn</span></a>
         </div>
       </div>
-
-      <!-- Master Reset -->
-      <div>
-        <button onclick="resetAllGames()">Reset All Games</button>
-        <button onclick="showDetailedStats()">View Detailed Statistics</button>
-      </div>
-    </section>
-
-    <!-- Statistics Modal -->
-    <div id="statsModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 2px solid #333; z-index: 1000;">
-      <h3>📊 Detailed Cybersecurity Statistics</h3>
-      <div id="detailedStats"></div>
-      <button onclick="hideDetailedStats()">Close</button>
     </div>
-  </main>
+  </section>
 
-  <footer>
-    <p>&copy; 2025 Code Geass - InterLearn. Empowering digital safety and learning in Africa.</p>
-  </footer>
-
-  <script>
-    // Game state management
-    let gameStats = {
-      totalScore: 0,
-      gamesCompleted: 0,
-      passwordScore: 0,
-      phishingScore: 0,
-      phishingTotal: 0,
-      settingsScore: 0,
-      settingsTotal: 0,
-      threatScore: 0,
-      threatTotal: 0,
-      achievements: [],
-      passwordsTestedCount: 0,
-      strongPasswordsCreated: 0
-    };
-
-    // Password testing data
-    const commonPasswords = ['password', '123456', 'qwerty', 'abc123', 'password123', 'admin', 'welcome'];
-    
-    // Phishing scenarios
-    const phishingScenarios = [
-      {
-        content: "FROM: security@bankofbotswana-verify.com\nSUBJECT: URGENT: Your Account Will Be Closed\n\nDear Customer,\n\nYour account has suspicious activity. Click here immediately to verify: http://bankofbotswana-verify.com/urgent-verify\n\nFail to verify within 24 hours will result in permanent closure.\n\nBank of Botswana Security",
-        isPhishing: true,
-        explanation: "This is phishing! Red flags: suspicious domain (bankofbotswana-verify.com instead of official domain), urgent threats, poor grammar, and requesting immediate action."
-      },
-      {
-        content: "FROM: notifications@facebook.com\nSUBJECT: Your Weekly Activity Summary\n\nHi [Your Name],\n\nHere's your activity summary for this week:\n- 15 new friend requests\n- 42 likes on your posts\n- 8 comments\n\nManage your notifications: https://facebook.com/settings\n\nThe Facebook Team",
-        isPhishing: false,
-        explanation: "This appears legitimate! It's from the official Facebook domain, has no urgent requests, and links to the real Facebook settings page."
-      },
-      {
-        content: "FROM: winner@lottery-botswana.org\nSUBJECT: CONGRATULATIONS! You Won P2,000,000!\n\nDear Lucky Winner,\n\nYou have won P2,000,000 in the Botswana National Lottery! To claim your prize:\n\n1. Send copy of your ID\n2. Bank details\n3. Processing fee: P5,000\n\nContact us immediately: winner@lottery-botswana.org",
-        isPhishing: true,
-        explanation: "Classic lottery scam! Red flags: unsolicited prize notification, requests for personal information and upfront payment, unofficial email domain."
-      },
-      {
-        content: "FROM: support@mascom.bw\nSUBJECT: Monthly Bill Statement - January 2025\n\nDear Customer,\n\nYour monthly statement is ready for account ending in 1234.\n\nAmount due: P156.50\nDue date: 28 January 2025\n\nView statement: https://mascom.bw/mybill\nPay online: https://mascom.bw/pay\n\nMascom Customer Service",
-        isPhishing: false,
-        explanation: "This looks legitimate! Official Mascom domain (.bw), realistic bill amount, proper links to official website, no urgent threats or requests for sensitive info."
-      },
-      {
-        content: "WhatsApp message from unknown number:\n\n'Hi! I'm Sarah from Orange Botswana. You've won a smartphone in our promotion! To claim, send P50 airtime to this number for processing. Limited time offer!'",
-        isPhishing: true,
-        explanation: "WhatsApp scam! Red flags: unknown number claiming to be from a company, requests payment to claim 'prize', creates urgency with 'limited time'."
-      }
-    ];
-
-    // Security settings scenarios
-    const settingsScenarios = [
-      {
-        scenario: "You're setting up a new WhatsApp account. Configure the privacy settings:",
-        options: [
-          { text: "Profile photo visible to: Everyone", value: "photo_everyone", correct: false },
-          { text: "Profile photo visible to: My Contacts", value: "photo_contacts", correct: true },
-          { text: "Last seen visible to: Everyone", value: "lastseen_everyone", correct: false },
-          { text: "Last seen visible to: Nobody", value: "lastseen_nobody", correct: true },
-          { text: "Read receipts: Enabled", value: "read_enabled", correct: false },
-          { text: "Read receipts: Disabled", value: "read_disabled", correct: true }
-        ],
-        explanation: "Best privacy: Profile photo and last seen should be limited to contacts only or nobody. Read receipts can be disabled for better privacy."
-      },
-      {
-        scenario: "You're using public Wi-Fi at a café. Choose the best security practices:",
-        options: [
-          { text: "Connect to any open network", value: "any_network", correct: false },
-          { text: "Ask café staff for official Wi-Fi name", value: "verify_network", correct: true },
-          { text: "Use VPN when connected", value: "use_vpn", correct: true },
-          { text: "Access mobile banking", value: "mobile_banking", correct: false },
-          { text: "Avoid sensitive websites", value: "avoid_sensitive", correct: true },
-          { text: "Turn off auto-connect", value: "no_auto_connect", correct: true }
-        ],
-        explanation: "On public Wi-Fi: Verify network name, use VPN, avoid sensitive activities, and disable auto-connect to prevent connecting to malicious networks."
-      }
-    ];
-
-    // Threat response scenarios
-    const threatScenarios = [
-      {
-        threat: "🚨 ALERT: Your phone is showing a popup that says 'VIRUS DETECTED! Your phone is 85% damaged. Download CleanMaster Pro immediately to fix.'",
-        options: [
-          { text: "Download the recommended app immediately", correct: false },
-          { text: "Close the popup and run a legitimate antivirus scan", correct: true },
-          { text: "Click 'Allow' to let it fix the problems", correct: false },
-          { text: "Share the alert with friends to warn them", correct: false }
-        ],
-        explanation: "This is a fake virus alert! Never download apps from suspicious popups. Close it and use legitimate antivirus software if concerned."
-      },
-      {
-        threat: "🚨 SITUATION: You receive a call saying 'This is FNB security. Someone tried to access your account. Please confirm your PIN to secure it.'",
-        options: [
-          { text: "Provide your PIN to secure the account", correct: false },
-          { text: "Hang up and call FNB directly using official number", correct: true },
-          { text: "Ask them to email you the details", correct: false },
-          { text: "Transfer money to a 'safe account' they provide", correct: false }
-        ],
-        explanation: "Banks never ask for PINs over the phone! This is a social engineering attack. Always hang up and call the official number."
-      },
-      {
-        threat: "🚨 WARNING: Your computer screen locks with a message: 'Your files are encrypted. Pay P10,000 in Bitcoin to unlock them.'",
-        options: [
-          { text: "Pay the ransom immediately to get files back", correct: false },
-          { text: "Disconnect from internet and seek professional help", correct: true },
-          { text: "Try to negotiate a lower price", correct: false },
-          { text: "Restart computer hoping it will go away", correct: false }
-        ],
-        explanation: "This is ransomware! Never pay criminals. Disconnect internet, seek professional help, and restore from backups if available."
-      }
-    ];
-
-    // Current game indices
-    let currentPhishingIndex = 0;
-    let currentSettingsIndex = 0;
-    let currentThreatIndex = 0;
-
-    // Initialize games
-    window.onload = function() {
-      updateMainDisplay();
-      loadNextPhishingScenario();
-      loadNextSettingsScenario();
-      loadNextThreatScenario();
-      updateAchievements();
-    };
-
-    // Password strength testing
-    function testPassword() {
-      const password = document.getElementById('passwordInput').value;
-      if (!password) {
-        alert('Please enter a password to test!');
-        return;
-      }
-
-      gameStats.passwordsTestedCount++;
-      
-      let score = 0;
-      let feedback = [];
-      let bonuses = [];
-
-      // Length check
-      if (password.length >= 12) {
-        score += 25;
-        bonuses.push('✅ Good length (12+ characters)');
-      } else if (password.length >= 8) {
-        score += 15;
-        feedback.push('⚠️ Consider making it longer (12+ characters recommended)');
-      } else {
-        feedback.push('❌ Too short! Use at least 8 characters');
-      }
-
-      // Character variety
-      if (/[a-z]/.test(password)) { score += 10; bonuses.push('✅ Contains lowercase letters'); }
-      else { feedback.push('❌ Add lowercase letters (a-z)'); }
-      
-      if (/[A-Z]/.test(password)) { score += 10; bonuses.push('✅ Contains uppercase letters'); }
-      else { feedback.push('❌ Add uppercase letters (A-Z)'); }
-      
-      if (/[0-9]/.test(password)) { score += 10; bonuses.push('✅ Contains numbers'); }
-      else { feedback.push('❌ Add numbers (0-9)'); }
-      
-      if (/[^a-zA-Z0-9]/.test(password)) { score += 15; bonuses.push('✅ Contains special characters'); }
-      else { feedback.push('❌ Add special characters (!@#$%^&*)'); }
-
-      // Common password check
-      if (commonPasswords.includes(password.toLowerCase())) {
-        score -= 30;
-        feedback.push('❌ This is a commonly used password!');
-      }
-
-      // Pattern detection
-      if (/(.)\1{2,}/.test(password)) {
-        score -= 10;
-        feedback.push('⚠️ Avoid repeating characters');
-      }
-
-      if (/123|abc|qwe/i.test(password)) {
-        score -= 15;
-        feedback.push('⚠️ Avoid sequential patterns');
-      }
-
-      // Personal info detection (simplified)
-      const personalPatterns = /password|admin|user|name|birth|year|2024|2025/i;
-      if (personalPatterns.test(password)) {
-        score -= 10;
-        feedback.push('⚠️ Avoid personal information and common words');
-      }
-
-      // Ensure score is within bounds
-      score = Math.max(0, Math.min(100, score));
-
-      // Determine strength level
-      let strength, color, advice;
-      if (score >= 80) {
-        strength = 'EXCELLENT';
-        color = '#22c55e';
-        advice = '🛡️ This is a very strong password!';
-        if (score >= 80 && gameStats.strongPasswordsCreated === 0) {
-          gameStats.strongPasswordsCreated++;
-          gameStats.totalScore += 50;
-          updateMainDisplay();
-          checkAchievements();
-        }
-      } else if (score >= 60) {
-        strength = 'GOOD';
-        color = '#3b82f6';
-        advice = '👍 This is a decent password, but could be stronger.';
-      } else if (score >= 40) {
-        strength = 'FAIR';
-        color = '#f59e0b';
-        advice = '⚠️ This password needs improvement.';
-      } else {
-        strength = 'WEAK';
-        color = '#ef4444';
-        advice = '❌ This password is too weak! Please create a stronger one.';
-      }
-
-      // Display results
-      let resultHTML = `
-        <div style="color: ${color}; font-weight: bold; font-size: 18px;">
-          Password Strength: ${strength} (${score}/100)
+  <!-- Progress Bar -->
+  <section class="container-fluid py-3">
+    <div class="container">
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-light fw-bold">Course Progress:</span>
+        <div class="progress flex-grow-1">
+          <div class="progress-bar" id="courseProgress" role="progressbar" style="width: 0%;">0%</div>
         </div>
-        <p><strong>${advice}</strong></p>
-      `;
+        <span class="text-light fw-bold" id="progressText">0/8</span>
+      </div>
+    </div>
+  </section>
 
-      if (bonuses.length > 0) {
-        resultHTML += '<p><strong>Strengths:</strong></p><ul>';
-        bonuses.forEach(bonus => {
-          resultHTML += `<li>${bonus}</li>`;
-        });
-        resultHTML += '</ul>';
-      }
-
-      if (feedback.length > 0) {
-        resultHTML += '<p><strong>Improvements needed:</strong></p><ul>';
-        feedback.forEach(item => {
-          resultHTML += `<li>${item}</li>`;
-        });
-        resultHTML += '</ul>';
-      }
-
-      resultHTML += `<p><small>Passwords tested: ${gameStats.passwordsTestedCount}</small></p>`;
-
-      document.getElementById('passwordResult').innerHTML = resultHTML;
-
-      // Award points for testing
-      if (gameStats.passwordsTestedCount === 1) {
-        gameStats.totalScore += 10;
-        updateMainDisplay();
-        checkAchievements();
-      }
-    }
-
-    function showPasswordTips() {
-      const tipsDiv = document.getElementById('passwordTips');
-      if (tipsDiv.style.display === 'none') {
-        tipsDiv.innerHTML = `
-          <h4>💡 Password Creation Tips:</h4>
-          <ul>
-            <li><strong>Use a passphrase:</strong> "Coffee@Morning#2025!" (easier to remember)</li>
-            <li><strong>Substitute characters:</strong> Replace 'o' with '0', 'a' with '@'</li>
-            <li><strong>Add random elements:</strong> Include numbers and symbols</li>
-            <li><strong>Make it personal but not obvious:</strong> Use meaningful phrases only you know</li>
-            <li><strong>Example strong password:</strong> "MyDog!Loves2Run@7AM" (but make your own!)</li>
-          </ul>
-          <p><strong>Password manager tip:</strong> Use a password manager to generate and store unique passwords for all accounts!</p>
-        `;
-        tipsDiv.style.display = 'block';
-      } else {
-        tipsDiv.style.display = 'none';
-      }
-    }
-
-    // Phishing detection game
-    function loadNextPhishingScenario() {
-      if (currentPhishingIndex >= phishingScenarios.length) {
-        document.getElementById('phishingScenario').innerHTML = '<p><strong>🎉 You\'ve completed all phishing scenarios!</strong></p>';
-        return;
-      }
-
-      const scenario = phishingScenarios[currentPhishingIndex];
-      document.getElementById('phishingScenario').innerHTML = `
-        <h4>Email/Message ${currentPhishingIndex + 1}:</h4>
-        <div style="background-color: #f9f9f9; padding: 15px; border: 1px solid #ddd; white-space: pre-line; font-family: monospace;">
-${scenario.content}
+  <!-- Main Course Container -->
+  <div class="container my-5">
+    <div class="row">
+      
+      <!-- Sidebar -->
+      <div class="col-lg-3 mb-4">
+        <div class="card-cyber p-3">
+          <h5 class="mb-3" style="color: #e0b0ff;">Course Chapters</h5>
+          <div class="chapter-list">
+            
+            <div class="chapter-item active" data-chapter="1">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">▶</span>
+                <span class="chapter-title">Introduction to Cybersecurity</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="2">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Password Security</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Knowledge Check: Passwords</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="4">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Phishing & Scams</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="5">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Data Privacy Basics</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="6">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Mobile Security</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="7">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">African Cyber Threats</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="8">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Final Assessment</span>
+              </div>
+            </div>
+            
+          </div>
         </div>
-        <p><strong>Is this legitimate or phishing?</strong></p>
-      `;
-      
-      document.getElementById('phishingFeedback').innerHTML = '';
-    }
+      </div>
 
-    function reportPhishing(userSaysPhishing) {}
-      const scenario = phishingScenarios[currentPhishingIndex];
-      const correct = userSaysPhishing === scenario.isPhishing;
-      
-      gameStats.phishingTotal++;
-      
-      if (correct) {
-        gameStats.phishingScore++;
-        gameStats.totalScore += 20;
-        document.getElementById('phishingFeedback').innerHTML = `
-          <div style="color: green; font-weight: bold;">✅ Correct!</div>
-          <p>${scenario.explanation}</p>
-        `;
-      } else {
-        document.getElementById('phishingFeedback').innerHTML = `
-          <div style="color: red; font-weight: bold;">❌ Incorrect</div>
-          <p>${scenario.explanation}</p>
-        `;
-      }
-      
-      document.getElementById('phishingScore').textContent = gameStats.phishingScore;
-      document.getElementById('phishingTotal').textContent = gameStats.phishingTotal;
-      updateMainDisplay();
+      <!-- Main Content -->
+      <div class="col-lg-9">
+        
+        <div id="chapterContent" class="card-cyber p-4">
+          
+          <!-- CHAPTER 1 -->
+          <div class="chapter-content" id="chapter-1">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 1: Introduction to Cybersecurity</h2>
+            
+            <div class="lesson-content">
+              <h4 style="color: #b19cd9;">What is Cybersecurity?</h4>
+              <p>Cybersecurity is the practice of protecting your devices, networks, and data from digital attacks, theft, and damage. In today's connected world, cybersecurity knowledge is essential for everyone.</p>
+              
+              <div class="concept-box">
+                <strong style="color: #e0b0ff;">🎯 Why Cybersecurity Matters</strong>
+                <ul class="mt-2 mb-0">
+                  <li><strong>Personal Protection:</strong> Keep your private information safe from hackers and criminals</li>
+                  <li><strong>Financial Security:</strong> Protect your money and banking information</li>
+                  <li><strong>Identity Safety:</strong> Prevent identity theft and fraud</li>
+                  <li><strong>Digital Reputation:</strong> Maintain control over your online presence</li>
+                </ul>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">The Digital Threat Landscape</h4>
+              <p>Cyber threats are constantly evolving. Understanding these threats is the first step to protecting yourself:</p>
+              
+              <div class="concept-box">
+                <strong style="color: #e0b0ff;">🚨 Common Cyber Threats</strong>
+                <ul class="mt-2 mb-0">
+                  <li><strong>Hacking:</strong> Unauthorized access to your accounts or devices</li>
+                  <li><strong>Phishing:</strong> Fake emails or messages trying to steal information</li>
+                  <li><strong>Malware:</strong> Malicious software that harms your device</li>
+                  <li><strong>Identity Theft:</strong> Criminals using your personal information</li>
+                  <li><strong>Data Breaches:</strong> Large-scale theft of user data from companies</li>
+                </ul>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Cybersecurity Statistics</h4>
+              <div class="alert-box">
+                <strong style="color: #f43f5e;">📊 Did You Know?</strong>
+                <ul class="mt-2 mb-0">
+                  <li>Over 80% of data breaches involve weak or stolen passwords</li>
+                  <li>Phishing attacks increased by 400% in the past year</li>
+                  <li>A cyberattack occurs every 39 seconds globally</li>
+                  <li>95% of cybersecurity breaches are caused by human error</li>
+                </ul>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Your Cybersecurity Journey</h4>
+              <p>In this course, you'll learn practical skills to protect yourself online, including creating strong passwords, recognizing phishing attempts, securing your devices, and protecting your personal data.</p>
+              
+              <div class="success-box">
+                <strong style="color: #34d399;">✅ Remember:</strong>
+                <p class="mb-0 mt-2">Cybersecurity is not just for IT professionals—it's for everyone who uses technology. Small actions can make a big difference in staying safe online!</p>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-end mt-4">
+              <button class="btn-custom next-chapter" data-next="2"><span>Continue →</span></button>
+            </div>
+          </div>
 
+          <!-- CHAPTER 2 -->
+          <div class="chapter-content" id="chapter-2" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 2: Password Security</h2>
+            
+            <div class="lesson-content">
+              <h4 style="color: #b19cd9;">The Importance of Strong Passwords</h4>
+              <p>Passwords are your first line of defense against unauthorized access. Weak passwords are the #1 way hackers gain access to accounts.</p>
+              
+              <div class="concept-box">
+                <strong style="color: #e0b0ff;">🔑 Elements of a Strong Password</strong>
+                <ul class="mt-2 mb-0">
+                  <li><strong>Length:</strong> At least 12 characters (longer is better)</li>
+                  <li><strong>Complexity:</strong> Mix uppercase, lowercase, numbers, and symbols</li>
+                  <li><strong>Uniqueness:</strong> Never reuse passwords across accounts</li>
+                  <li><strong>Unpredictability:</strong> Avoid personal information and common words</li>
+                </ul>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Password Examples</h4>
+              <div class="alert-box">
+                <strong style="color: #f43f5e;">❌ WEAK Passwords (Never Use These!)</strong>
+                <ul class="mt-2 mb-0">
+                  <li>password123</li>
+                  <li>qwerty</li>
+                  <li>Your name or birthday</li>
+                  <li>123456</li>
+                </ul>
+              </div>
+              
+              <div class="success-box">
+                <strong style="color: #34d399;">✅ STRONG Password Examples</strong>
+                <ul class="mt-2 mb-0">
+                  <li>M0rning*Coffee@7AM! (but create your own!)</li>
+                  <li>Blue$Elephant#Dance92</li>
+                  <li>Sunset!Beach2025*Wave</li>
+                </ul>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Two-Factor Authentication (2FA)</h4>
+              <p>2FA adds an extra security layer requiring two forms of verification:</p>
+              
+              <div class="concept-box">
+                <strong style="color: #e0b0ff;">🛡️ Types of 2FA</strong>
+                <ul class="mt-2 mb-0">
+                  <li><strong>SMS codes:</strong> Text messages with temporary codes</li>
+                  <li><strong>Authenticator apps:</strong> Google Authenticator, Authy (more secure)</li>
+                  <li><strong>Hardware keys:</strong> Physical devices like YubiKey (most secure)</li>
+                  <li><strong>Biometrics:</strong> Fingerprint or face recognition</li>
+                </ul>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Password Management Tips</h4>
+              <ul>
+                <li>Use a password manager to generate and store unique passwords</li>
+                <li>Change passwords immediately if you suspect a breach</li>
+                <li>Never share passwords with anyone</li>
+                <li>Don't write passwords on paper or store in plain text files</li>
+                <li>Enable 2FA wherever possible</li>
+              </ul>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="1"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="3"><span>Continue →</span></button>
+            </div>
+          </div>
 
+          <!-- CHAPTER 3 -->
+          <div class="chapter-content" id="chapter-3" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 3: Knowledge Check - Password Security</h2>
+            
+            <form id="quiz-chapter-3" class="quiz-form">
+              
+              <div class="question-block">
+                <p class="fw-bold" style="color: #e0b0ff;">1. What is the minimum recommended password length?</p>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_1" value="a">
+                  <label class="form-check-label">6 characters</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_1" value="b">
+                  <label class="form-check-label">8 characters</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_1" value="c">
+                  <label class="form-check-label">12 characters or more</label>
+                </div>
+              </div>
+              
+              <div class="question-block">
+                <p class="fw-bold" style="color: #e0b0ff;">2. Why should you use different passwords for different accounts?</p>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_2" value="a">
+                  <label class="form-check-label">It's easier to remember</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_2" value="b">
+                  <label class="form-check-label">If one account is breached, others remain safe</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_2" value="c">
+                  <label class="form-check-label">It doesn't matter</label>
+                </div>
+              </div>
+              
+              <div class="question-block">
+                <p class="fw-bold" style="color: #e0b0ff;">3. What does Two-Factor Authentication (2FA) require?</p>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_3" value="a">
+                  <label class="form-check-label">Two passwords</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_3" value="b">
+                  <label class="form-check-label">Two forms of verification (password + code/device)</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="q3_3" value="c">
+                  <label class="form-check-label">Two email addresses</label>
+                </div>
+              </div>
+              
+              <div class="quiz-feedback" id="feedback-chapter-3"></div>
+              
+              <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn-custom prev-chapter" data-prev="2"><span>← Previous</span></button>
+                <button type="submit" class="btn-custom"><span>Submit Answers</span></button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Chapters 4-8 placeholders -->
+          <div class="chapter-content" id="chapter-4" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 4: Phishing & Scams</h2>
+            <div class="lesson-content">
+              <p>Content for phishing chapter...</p>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="3"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="5"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-5" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 5: Data Privacy Basics</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="4"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="6"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-6" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 6: Mobile Security</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="5"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="7"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-7" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 7: African Cyber Threats</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="6"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="8"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-8" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 8: Final Assessment</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="7"><span>← Previous</span></button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div class="game-section">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold" style="color: #e0b0ff;">🎮 Cybersecurity Challenge Games</h2>
+        <p class="lead" style="color: #b19cd9;">Test your cybersecurity knowledge through interactive games!</p>
+      </div>
+
+      <!-- Game Stats -->
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <div class="card-cyber p-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+              <div>
+                <h5 style="color: #e0b0ff; margin: 0;">Total Score: <span id="totalScore">0</span> points</h5>
+                <p style="color: #b19cd9; margin: 0;">Security Level: <span id="securityLevel">Beginner</span></p>
+              </div>
+              <div>
+                <span style="color: #b19cd9;">Games Completed: <span id="gamesCompleted">0</span> / 4</span>
+              </div>
+            </div>
+          </div>
+        </div>

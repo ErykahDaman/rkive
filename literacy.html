@@ -1,508 +1,762 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Literacy | InterLearn</title>
+  <title>Digital Literacy | Code Geass</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Core Styles */
+    body {
+      background: linear-gradient(135deg, #0f0c29 0%, #1a0f3a 50%, #24243e 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: linear-gradient(90deg, rgba(26, 10, 46, 0.95) 0%, rgba(45, 27, 78, 0.95) 100%);
+      padding: 15px 30px;
+      border-bottom: 2px solid rgba(138, 43, 226, 0.4);
+      box-shadow: 0 2px 10px rgba(138, 43, 226, 0.3);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #8a2be2 0%, #c77dff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #b19cd9;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #e0b0ff;
+    }
+
+    /* Cards */
+    .card-cyber {
+      background: linear-gradient(135deg, rgba(26, 10, 46, 0.9), rgba(45, 27, 78, 0.9));
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Chapter Navigation */
+    .chapter-item {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .chapter-item:hover:not(.locked) {
+      background: rgba(138, 43, 226, 0.2);
+      border-left: 3px solid #8a2be2;
+      transform: translateX(5px);
+    }
+
+    .chapter-item.active {
+      background: linear-gradient(90deg, rgba(138, 43, 226, 0.4) 0%, rgba(138, 43, 226, 0.2) 100%);
+      border-left: 3px solid #e0b0ff;
+    }
+
+    .chapter-item.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .chapter-item.completed {
+      background: rgba(52, 211, 153, 0.1);
+    }
+
+    .chapter-icon {
+      font-size: 1rem;
+      margin-right: 8px;
+    }
+
+    .chapter-title {
+      font-size: 0.9rem;
+      color: #e0b0ff;
+    }
+
+    /* Buttons */
+    .btn-custom {
+      background: linear-gradient(135deg, #8a2be2 0%, #9d4edd 100%);
+      border: none;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
+      cursor: pointer;
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+      background: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+    }
+
+    /* Progress Bar */
+    .progress {
+      height: 25px;
+      background: rgba(138, 43, 226, 0.1);
+      border-radius: 15px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .progress-bar {
+      background: linear-gradient(90deg, #8a2be2, #a78bfa);
+      border-radius: 15px;
+      transition: width 0.5s ease;
+    }
+
+    /* Content Boxes */
+    .concept-box {
+      background: rgba(138, 43, 226, 0.15);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 8px;
+      border-left: 4px solid #8a2be2;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .success-box {
+      background: rgba(52, 211, 153, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-radius: 8px;
+      border-left: 4px solid #34d399;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    /* Quiz Styles */
+    .quiz-form {
+      background: rgba(26, 10, 46, 0.5);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .question-block {
+      background: rgba(138, 43, 226, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(138, 43, 226, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .form-check-input:checked {
+      background-color: #8a2be2;
+      border-color: #8a2be2;
+    }
+
+    .quiz-feedback {
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .quiz-feedback.correct {
+      background: rgba(52, 211, 153, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.5);
+      color: #34d399;
+    }
+
+    .quiz-feedback.incorrect {
+      background: rgba(244, 63, 94, 0.2);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: #f43f5e;
+    }
+
+    /* Game Section */
+    .game-section {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid rgba(138, 43, 226, 0.3);
+    }
+
+    .game-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      color: #000;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .game-card h4 {
+      color: #8a2be2;
+      margin-bottom: 16px;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 12px;
+      background: rgba(139, 92, 246, 0.15);
+      border: 2px solid rgba(139, 92, 246, 0.4);
+      color: #8a2be2;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: rgba(139, 92, 246, 0.3);
+      border-color: #8a2be2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+    }
+
+    .option-btn.correct {
+      background: rgba(52, 211, 153, 0.2);
+      border-color: #34d399;
+      color: #059669;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: #f43f5e;
+      color: #dc2626;
+    }
+
+    /* Drag and Drop */
+    .drag-item {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #8a2be2, #9d4edd);
+      border: 2px solid #c77dff;
+      border-radius: 8px;
+      cursor: move;
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .drag-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(138, 43, 226, 0.5);
+    }
+
+    .drop-zone {
+      min-height: 80px;
+      margin: 10px 0;
+      padding: 15px;
+      border: 3px dashed rgba(138, 43, 226, 0.4);
+      background: rgba(138, 43, 226, 0.05);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .drop-zone.hover {
+      border-color: #8a2be2;
+      background: rgba(138, 43, 226, 0.15);
+    }
+
+    .drop-zone.correct {
+      border-color: #34d399;
+      background: rgba(52, 211, 153, 0.1);
+    }
+
+    .drop-zone.incorrect {
+      border-color: #f43f5e;
+      background: rgba(244, 63, 94, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Navbar -->
   <header>
     <nav class="navbar d-flex justify-content-between align-items-center">
       <div class="logo">CODE GEASS</div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="interlearn.html">InterLearn</a></li>
+        <li><a href="interlearn.html" class="active">InterLearn</a></li>
         <li><a href="safecheck.html">SafeCheck</a></li>
         <li><a href="lexiguard.html">LexiGuard</a></li>
-        <li><a href="community.html" >Community Hub</a></li>
+        <li><a href="community.html">Community Hub</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  
-  <main>
-    <script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="fzVzg-S4dJzGU_iYSo5SR";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
-    <section>
-      <h1>💻 Digital Literacy Learning Module</h1>
-      <p>Master essential digital skills to navigate the modern world with confidence and safety!</p>
-    </section>
-
-    <!-- Educational Section -->
-    <section>
-      <h2>📚 Learn Digital Literacy Fundamentals</h2>
-      
-      <h3>What is Digital Literacy?</h3>
-      <p>Digital literacy is the ability to find, evaluate, use, and create digital content effectively and safely. It includes understanding how technology works, how to use devices and software, and how to stay safe online.</p>
-      
-      <h3>🌟 Core Digital Literacy Skills</h3>
-      
-      <h4>1. Device Basics & Navigation</h4>
-      <p><strong>Understanding your devices:</strong></p>
-      <ul>
-        <li><strong>Smartphones:</strong> Touchscreen navigation, app management, settings control</li>
-        <li><strong>Computers:</strong> Mouse and keyboard use, file management, software installation</li>
-        <li><strong>Tablets:</strong> Touch gestures, app switching, screen orientation</li>
-        <li><strong>Operating Systems:</strong> Windows, macOS, Android, iOS basics</li>
-      </ul>
-      
-      <h4>2. Internet & Web Browsing</h4>
-      <p><strong>Web Browsers:</strong> Chrome, Firefox, Safari, Edge - tools to access websites</p>
-      <p><strong>Essential browsing skills:</strong></p>
-      <ul>
-        <li><strong>URL understanding:</strong> https://www.example.com structure</li>
-        <li><strong>Search engines:</strong> Google, Bing - how to search effectively</li>
-        <li><strong>Bookmarks:</strong> Saving favorite websites for quick access</li>
-        <li><strong>Downloads:</strong> Safely downloading files and documents</li>
-        <li><strong>Pop-ups:</strong> Recognizing and handling unwanted windows</li>
-      </ul>
-      
-      <h4>3. Digital Communication</h4>
-      <p><strong>Email basics:</strong></p>
-      <ul>
-        <li><strong>Creating accounts:</strong> Gmail, Yahoo, Outlook setup</li>
-        <li><strong>Composing emails:</strong> Subject lines, attachments, formatting</li>
-        <li><strong>Email etiquette:</strong> Professional communication standards</li>
-        <li><strong>Managing inbox:</strong> Organizing, deleting, spam filtering</li>
-      </ul>
-      
-      <p><strong>Messaging platforms:</strong></p>
-      <ul>
-        <li><strong>WhatsApp:</strong> Text, voice, video calls, group chats</li>
-        <li><strong>Telegram:</strong> Secure messaging, channels, bots</li>
-        <li><strong>SMS/Text:</strong> Traditional phone messaging</li>
-        <li><strong>Video calls:</strong> Zoom, Teams, Google Meet basics</li>
-      </ul>
-      
-      <h4>4. Social Media Literacy</h4>
-      <p><strong>Popular platforms in Africa:</strong></p>
-      <ul>
-        <li><strong>Facebook:</strong> Posts, friends, groups, pages, marketplace</li>
-        <li><strong>Instagram:</strong> Photos, stories, reels, direct messages</li>
-        <li><strong>Twitter/X:</strong> Tweets, hashtags, trending topics</li>
-        <li><strong>TikTok:</strong> Short videos, trends, effects</li>
-        <li><strong>LinkedIn:</strong> Professional networking, job searching</li>
-      </ul>
-      
-      <p><strong>Social media skills:</strong></p>
-      <ul>
-        <li>Creating and managing profiles</li>
-        <li>Understanding privacy settings</li>
-        <li>Recognizing fake news and misinformation</li>
-        <li>Building positive online presence</li>
-        <li>Networking and professional connections</li>
-      </ul>
-      
-      <h4>5. Digital Banking & Mobile Money</h4>
-      <p><strong>Mobile money platforms (Botswana):</strong></p>
-      <ul>
-        <li><strong>Orange Money:</strong> Send, receive, pay bills, buy airtime</li>
-        <li><strong>Mascom MyZaka:</strong> Mobile payments and transfers</li>
-        <li><strong>Smega:</strong> Multi-network mobile money service</li>
-      </ul>
-      
-      <p><strong>Online banking basics:</strong></p>
-      <ul>
-        <li>Account access and login security</li>
-        <li>Checking balances and statements</li>
-        <li>Making transfers and payments</li>
-        <li>Understanding transaction fees</li>
-        <li>Recognizing legitimate bank communications</li>
-      </ul>
-      
-      <h4>6. File Management & Cloud Storage</h4>
-      <p><strong>Understanding files:</strong></p>
-      <ul>
-        <li><strong>File types:</strong> .jpg (images), .pdf (documents), .mp3 (audio), .mp4 (video)</li>
-        <li><strong>Folders:</strong> Organizing files in directories</li>
-        <li><strong>File naming:</strong> Clear, searchable names</li>
-        <li><strong>Backup:</strong> Copying important files for safety</li>
-      </ul>
-      
-      <p><strong>Cloud storage services:</strong></p>
-      <ul>
-        <li><strong>Google Drive:</strong> 15GB free storage, document editing</li>
-        <li><strong>Dropbox:</strong> File sharing and synchronization</li>
-        <li><strong>iCloud:</strong> Apple device integration</li>
-        <li><strong>OneDrive:</strong> Microsoft Office integration</li>
-      </ul>
-      
-      <h4>7. Digital Security Awareness</h4>
-      <p><strong>Common threats:</strong></p>
-      <ul>
-        <li><strong>Malware:</strong> Viruses, ransomware, spyware</li>
-        <li><strong>Phishing:</strong> Fake emails and websites</li>
-        <li><strong>Social engineering:</strong> Manipulation to reveal information</li>
-        <li><strong>Identity theft:</strong> Stealing personal information</li>
-        <li><strong>Scams:</strong> Fraudulent schemes for money</li>
-      </ul>
-      
-      <p><strong>Protection tools:</strong></p>
-      <ul>
-        <li><strong>Antivirus software:</strong> Kaspersky, Norton, Windows Defender</li>
-        <li><strong>Password managers:</strong> LastPass, Bitwarden, 1Password</li>
-        <li><strong>VPN services:</strong> NordVPN, ExpressVPN for privacy</li>
-        <li><strong>Two-factor authentication:</strong> Extra security layer</li>
-      </ul>
-      
-      <h3>💡 Digital Literacy for Different Ages</h3>
-      
-      <h4>For Students (13-18 years)</h4>
-      <ul>
-        <li>Research skills and source evaluation</li>
-        <li>Digital collaboration tools (Google Docs, Teams)</li>
-        <li>Online learning platforms (Khan Academy, Coursera)</li>
-        <li>Digital portfolio creation</li>
-        <li>Coding basics (Scratch, Python)</li>
-      </ul>
-      
-      <h4>For Adults (19-65 years)</h4>
-      <ul>
-        <li>Professional email communication</li>
-        <li>Job searching and LinkedIn networking</li>
-        <li>Online banking and financial management</li>
-        <li>E-commerce and online shopping safety</li>
-        <li>Digital government services (e-visas, tax filing)</li>
-      </ul>
-      
-      <h4>For Seniors (65+ years)</h4>
-      <ul>
-        <li>Basic device operation and troubleshooting</li>
-        <li>Video calling with family</li>
-        <li>Health monitoring apps and telemedicine</li>
-        <li>Online entertainment (YouTube, streaming)</li>
-        <li>Digital safety and scam awareness</li>
-      </ul>
-      
-      <h3>🌍 Digital Literacy in Africa</h3>
-      
-      <h4>Opportunities</h4>
-      <ul>
-        <li><strong>Mobile-first technology:</strong> Leapfrogging traditional infrastructure</li>
-        <li><strong>Financial inclusion:</strong> Mobile money expanding banking access</li>
-        <li><strong>Education access:</strong> Online learning reaching remote areas</li>
-        <li><strong>Entrepreneurship:</strong> E-commerce and digital business opportunities</li>
-        <li><strong>Government services:</strong> Digital ID, online services, e-voting</li>
-      </ul>
-      
-      <h4>Challenges</h4>
-      <ul>
-        <li><strong>Internet connectivity:</strong> Limited broadband in rural areas</li>
-        <li><strong>Data costs:</strong> Expensive mobile data plans</li>
-        <li><strong>Language barriers:</strong> Limited local language content</li>
-        <li><strong>Digital divide:</strong> Gap between urban and rural access</li>
-        <li><strong>Cybersecurity awareness:</strong> Limited knowledge of online threats</li>
-      </ul>
-      
-      <h3>📈 Building Your Digital Skills</h3>
-      
-      <h4>Step 1: Start with Basics</h4>
-      <ul>
-        <li>Learn to use your smartphone/computer effectively</li>
-        <li>Practice web browsing and searching</li>
-        <li>Set up and use email</li>
-        <li>Create social media accounts with proper privacy settings</li>
-      </ul>
-      
-      <h4>Step 2: Develop Intermediate Skills</h4>
-      <ul>
-        <li>Learn file management and cloud storage</li>
-        <li>Understand online banking and mobile money</li>
-        <li>Practice video calling and online meetings</li>
-        <li>Learn to identify and avoid scams</li>
-      </ul>
-      
-      <h4>Step 3: Advanced Digital Citizenship</h4>
-      <ul>
-        <li>Create professional online presence</li>
-        <li>Understand digital rights and privacy laws</li>
-        <li>Learn basic coding or website creation</li>
-        <li>Become a digital mentor for others</li>
-      </ul>
-    </section>
-
-    <hr>
-
-    <!-- Gamified Learning Section -->
-    <section>
-      <h2>🎮 Digital Literacy Challenge Games</h2>
-      <p>Test and improve your digital skills through interactive games and challenges!</p>
-      
-      <div>
-        <h3>📊 Your Digital Literacy Progress</h3>
-        <p><strong>Total Score:</strong> <span id="totalScore">0</span> points</p>
-        <p><strong>Games Completed:</strong> <span id="gamesCompleted">0</span> / 5</p>
-        <p><strong>Digital Literacy Level:</strong> <span id="literacyLevel">Beginner</span></p>
-        <p><strong>Completion Rate:</strong> <span id="completionRate">0</span>%</p>
-      </div>
-
-      <!-- Game 1: Concept Matching -->
-      <div>
-        <h3>🧩 Game 1: Digital Concepts Matching</h3>
-        <p>Drag and drop to match technology terms with their correct definitions!</p>
-        
-        <h4>Terms to Match:</h4>
-        <div id="dragTerms" style="min-height: 100px; border: 1px solid #ccc; padding: 10px; background-color: #ffffff;">
-          <div draggable="true" ondragstart="drag(event)" id="browser" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">Browser</div>
-          <div draggable="true" ondragstart="drag(event)" id="phishing" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">Phishing</div>
-          <div draggable="true" ondragstart="drag(event)" id="antivirus" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">Antivirus</div>
-          <div draggable="true" ondragstart="drag(event)" id="cloud" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">Cloud Storage</div>
-          <div draggable="true" ondragstart="drag(event)" id="vpn" style="display: inline-block; margin: 5px; padding: 8px; background-color: #f0f0f0; border: 1px solid #333; cursor: move; color: #000 !important; font-weight: bold;">VPN</div>
+  <!-- Course Header -->
+  <section class="container-fluid py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+          <h1 class="fw-bold" style="color: #e0b0ff;">💻 Digital Literacy Mastery</h1>
+          <p class="lead mb-0" style="color: #b19cd9;">Master essential digital skills to navigate the modern world with confidence</p>
         </div>
-        
-        <h4>Drop Zones (Match the definitions):</h4>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="browser" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
-          <strong>Definition 1:</strong> Software used to access websites like Chrome, Firefox, or Safari
-        </div>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="phishing" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
-          <strong>Definition 2:</strong> Fraudulent attempts to steal personal information through fake emails or websites
-        </div>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="antivirus" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
-          <strong>Definition 3:</strong> Software that protects your computer from viruses and malware
-        </div>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="cloud" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
-          <strong>Definition 4:</strong> Online storage service where you can save files and access them from anywhere
-        </div>
-        <div ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="vpn" style="min-height: 50px; margin: 5px; padding: 10px; border: 2px dashed #ccc; background-color: #f9f9f9; color: #000 !important;">
-          <strong>Definition 5:</strong> Technology that hides your IP address and encrypts your internet connection
-        </div>
-        
-        <button onclick="checkMatches()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Check My Answers</button>
-        <button onclick="resetMatching()" style="background: #666; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset Game</button>
-        <div id="matchFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; background-color: #fff; color: #000 !important;"></div>
-      </div>
-
-      <hr>
-
-      <!-- Game 2: Digital Skills Quiz -->
-      <div>
-        <h3>❓ Game 2: Digital Skills Quick Quiz</h3>
-        <p>Answer questions about digital literacy and build your knowledge!</p>
-        
-        <div id="quizContainer">
-          <div id="questionDisplay">
-            <h4>Question <span id="questionNumber">1</span> of <span id="totalQuestions">10</span></h4>
-            <p id="questionText" style="color: #000 !important; font-weight: bold;">Loading question...</p>
-            <div id="quizOptions"></div>
-            <div id="quizFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none; background-color: #fff; color: #000 !important;"></div>
-            <button id="nextQuizButton" onclick="nextQuizQuestion()" style="display: none; background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Next Question</button>
-          </div>
-        </div>
-        
-        <p><strong>Quiz Score:</strong> <span id="quizScore">0</span> / <span id="quizTotal">0</span> (Accuracy: <span id="quizAccuracy">0</span>%)</p>
-        <button onclick="resetQuiz()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Start New Quiz</button>
-      </div>
-
-      <hr>
-
-      <!-- Game 3: Scenario Simulator -->
-      <div>
-        <h3>🎯 Game 3: Digital Scenario Simulator</h3>
-        <p>Practice real-world digital situations and learn the best responses!</p>
-        
-        <div id="scenarioGame">
-          <div id="scenarioDisplay">
-            <h4>Scenario <span id="scenarioNumber">1</span></h4>
-            <div id="scenarioText" style="padding: 15px; background-color: #f0f8ff; border: 1px solid #0066cc; color: #000 !important;">Loading scenario...</div>
-            <div id="scenarioOptions" style="margin-top: 15px;"></div>
-            <div id="scenarioFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none; background-color: #fff; color: #000 !important;"></div>
-            <button id="nextScenarioButton" onclick="nextScenario()" style="display: none; background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Next Scenario</button>
-          </div>
-        </div>
-        
-        <p><strong>Scenario Score:</strong> <span id="scenarioScore">0</span> / <span id="scenarioTotal">0</span></p>
-        <button onclick="resetScenarios()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset Scenarios</button>
-      </div>
-
-      <hr>
-
-      <!-- Game 4: Device Skills Challenge -->
-      <div>
-        <h3>📱 Game 4: Device Skills Challenge</h3>
-        <p>Test your knowledge about using different devices and their features!</p>
-        
-        <div id="deviceChallenge">
-          <h4>Device: <span id="currentDevice">Smartphone</span></h4>
-          <div id="deviceQuestion" style="padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; color: #000 !important;">Loading device challenge...</div>
-          <div id="deviceOptions" style="margin-top: 10px;"></div>
-          <div id="deviceFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none; background-color: #fff; color: #000 !important;"></div>
-          <button id="nextDeviceButton" onclick="nextDeviceChallenge()" style="display: none; background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Next Challenge</button>
-        </div>
-        
-        <p><strong>Device Skills Score:</strong> <span id="deviceScore">0</span> / <span id="deviceTotal">0</span></p>
-        <button onclick="resetDeviceChallenge()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset Device Challenge</button>
-      </div>
-
-      <hr>
-
-      <!-- Game 5: Safety Skills Test -->
-      <div>
-        <h3>🛡️ Game 5: Digital Safety Skills Test</h3>
-        <p>Prove your ability to stay safe in the digital world!</p>
-        
-        <div id="safetyTest">
-          <div id="safetyScenario" style="padding: 15px; background-color: #fff3cd; border: 1px solid #ffc107; color: #000 !important;">Loading safety scenario...</div>
-          <div id="safetyOptions" style="margin-top: 15px;"></div>
-          <div id="safetyFeedback" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; display: none; background-color: #fff; color: #000 !important;"></div>
-          <button id="nextSafetyButton" onclick="nextSafetyTest()" style="display: none; background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Next Safety Test</button>
-        </div>
-        
-        <p><strong>Safety Score:</strong> <span id="safetyScore">0</span> / <span id="safetyTotal">0</span></p>
-        <button onclick="resetSafetyTest()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset Safety Test</button>
-      </div>
-
-      <!-- Achievement System -->
-      <div>
-        <h3>🏆 Digital Literacy Achievements</h3>
-        <div id="achievements">
-          <p>Complete games to unlock digital literacy achievements!</p>
-          <ul id="achievementsList"></ul>
+        <div>
+          <a href="interlearn.html" class="btn-custom"><span>← Back to InterLearn</span></a>
         </div>
       </div>
-
-      <!-- Progress Summary -->
-      <div>
-        <h3>📈 Progress Summary</h3>
-        <button onclick="showProgressReport()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">View Detailed Progress Report</button>
-        <button onclick="resetAllGames()" style="background: #666; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Reset All Progress</button>
-      </div>
-    </section>
-
-    <!-- Progress Report Modal -->
-    <div id="progressModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 2px solid #333; z-index: 1000; max-width: 80%; max-height: 80%; overflow-y: auto; color: #000 !important;">
-      <h3>📊 Detailed Progress Report</h3>
-      <div id="progressContent"></div>
-      <button onclick="hideProgressReport()" style="background: #333; color: #fff; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px;">Close Report</button>
     </div>
-  </main>
+  </section>
 
-  <footer>
-    <p>&copy; 2025 Code Geass - InterLearn. Empowering digital literacy across Africa.</p>
+  <!-- Progress Bar -->
+  <section class="container-fluid py-3">
+    <div class="container">
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-light fw-bold">Course Progress:</span>
+        <div class="progress flex-grow-1">
+          <div class="progress-bar" id="courseProgress" role="progressbar" style="width: 0%;">0%</div>
+        </div>
+        <span class="text-light fw-bold" id="progressText">0/8</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Course Container -->
+  <div class="container my-5">
+    <div class="row">
+      
+      <!-- Sidebar -->
+      <div class="col-lg-3 mb-4">
+        <div class="card-cyber p-3">
+          <h5 class="mb-3" style="color: #e0b0ff;">Course Chapters</h5>
+          <div class="chapter-list">
+            
+            <div class="chapter-item active" data-chapter="1">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">▶</span>
+                <span class="chapter-title">What is Digital Literacy?</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="2">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Device Basics</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Internet & Web Browsing</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="4">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Digital Communication</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="5">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Social Media Skills</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="6">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Digital Banking</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="7">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">File Management</span>
+              </div>
+            </div>
+            
+            <div class="chapter-item locked" data-chapter="8">
+              <div class="d-flex align-items-center gap-2">
+                <span class="chapter-icon">🔒</span>
+                <span class="chapter-title">Final Assessment</span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9">
+        
+        <div id="chapterContent" class="card-cyber p-4">
+          
+          <!-- CHAPTER 1 -->
+          <div class="chapter-content" id="chapter-1">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 1: What is Digital Literacy?</h2>
+            
+            <div class="lesson-content">
+              <h4 style="color: #b19cd9;">Understanding Digital Literacy</h4>
+              <p>Digital literacy is the ability to find, evaluate, use, and create digital content effectively and safely. It includes understanding how technology works, how to use devices and software, and how to stay safe online.</p>
+              
+              <div class="concept-box">
+                <strong style="color: #e0b0ff;">🌟 Why Digital Literacy Matters</strong>
+                <ul class="mt-2 mb-0">
+                  <li><strong>Education:</strong> Access online learning and resources</li>
+                  <li><strong>Employment:</strong> Most jobs require basic digital skills</li>
+                  <li><strong>Communication:</strong> Stay connected with family and friends</li>
+                  <li><strong>Finance:</strong> Manage money through online banking</li>
+                  <li><strong>Information:</strong> Access news and knowledge instantly</li>
+                  <li><strong>Empowerment:</strong> Participate fully in digital society</li>
+                </ul>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Core Skills You'll Learn</h4>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="concept-box">
+                    <strong style="color: #e0b0ff;">📱 Device Skills</strong>
+                    <p class="mb-0 mt-2">Smartphones, computers, tablets - learn to use them confidently</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="concept-box">
+                    <strong style="color: #e0b0ff;">🌐 Internet Skills</strong>
+                    <p class="mb-0 mt-2">Browse safely, search effectively, download responsibly</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="concept-box">
+                    <strong style="color: #e0b0ff;">💬 Communication</strong>
+                    <p class="mb-0 mt-2">Email, messaging, video calls, social media</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="concept-box">
+                    <strong style="color: #e0b0ff;">🔒 Safety Skills</strong>
+                    <p class="mb-0 mt-2">Protect your data, recognize scams, stay secure</p>
+                  </div>
+                </div>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Digital Literacy in Africa</h4>
+              <p>Africa is experiencing a digital revolution with mobile technology leading the way:</p>
+              
+              <div class="success-box">
+                <strong style="color: #34d399;">🌍 Opportunities</strong>
+                <ul class="mt-2 mb-0">
+                  <li>Mobile money expanding financial inclusion</li>
+                  <li>Online education reaching remote areas</li>
+                  <li>E-commerce creating new business opportunities</li>
+                  <li>Digital government services improving access</li>
+                  <li>Telemedicine bringing healthcare to communities</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-end mt-4">
+              <button class="btn-custom next-chapter" data-next="2"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <!-- CHAPTER 2 -->
+          <div class="chapter-content" id="chapter-2" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 2: Device Basics</h2>
+            
+            <div class="lesson-content">
+              <h4 style="color: #b19cd9;">Understanding Your Devices</h4>
+              <p>Learn to confidently use smartphones, computers, and tablets.</p>
+              
+              <div class="concept-box">
+                <strong style="color: #e0b0ff;">📱 Smartphone Skills</strong>
+                <ul class="mt-2 mb-0">
+                  <li><strong>Touchscreen Navigation:</strong> Tap, swipe, pinch to zoom</li>
+                  <li><strong>Home Screen:</strong> Icons, widgets, notifications</li>
+                  <li><strong>Settings:</strong> Wi-Fi, Bluetooth, volume, brightness</li>
+                  <li><strong>Apps:</strong> Installing, updating, managing</li>
+                  <li><strong>Camera:</strong> Taking photos, videos, selfies</li>
+                  <li><strong>Charging:</strong> Battery management and care</li>
+                </ul>
+              </div>
+              
+              <div class="concept-box mt-3">
+                <strong style="color: #e0b0ff;">💻 Computer Skills</strong>
+                <ul class="mt-2 mb-0">
+                  <li><strong>Mouse:</strong> Left-click, right-click, scroll wheel</li>
+                  <li><strong>Keyboard:</strong> Typing, shortcuts, special keys</li>
+                  <li><strong>Desktop:</strong> Icons, taskbar, start menu</li>
+                  <li><strong>Windows:</strong> Opening, closing, minimizing, maximizing</li>
+                  <li><strong>Files:</strong> Creating, saving, organizing folders</li>
+                  <li><strong>Printing:</strong> Connecting printers, printing documents</li>
+                </ul>
+              </div>
+              
+              <h4 class="mt-4" style="color: #b19cd9;">Operating Systems</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="success-box">
+                    <strong style="color: #34d399;">Mobile OS</strong>
+                    <ul class="mt-2 mb-0">
+                      <li><strong>Android:</strong> Samsung, Huawei, most phones</li>
+                      <li><strong>iOS:</strong> iPhone, iPad</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="success-box">
+                    <strong style="color: #34d399;">Computer OS</strong>
+                    <ul class="mt-2 mb-0">
+                      <li><strong>Windows:</strong> Most PCs</li>
+                      <li><strong>macOS:</strong> Apple computers</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="1"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="3"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <!-- Chapters 3-8 placeholders -->
+          <div class="chapter-content" id="chapter-3" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 3: Internet & Web Browsing</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="2"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="4"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-4" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 4: Digital Communication</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="3"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="5"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-5" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 5: Social Media Skills</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="4"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="6"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-6" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 6: Digital Banking</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="5"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="7"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-7" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 7: File Management</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="6"><span>← Previous</span></button>
+              <button class="btn-custom next-chapter" data-next="8"><span>Continue →</span></button>
+            </div>
+          </div>
+
+          <div class="chapter-content" id="chapter-8" style="display: none;">
+            <h2 class="mb-4" style="color: #e0b0ff;">Chapter 8: Final Assessment</h2>
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn-custom prev-chapter" data-prev="7"><span>← Previous</span></button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div class="game-section">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold" style="color: #e0b0ff;">🎮 Digital Literacy Challenge Games</h2>
+        <p class="lead" style="color: #b19cd9;">Test your digital skills through interactive challenges!</p>
+      </div>
+
+      <!-- Game Stats -->
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <div class="card-cyber p-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+              <div>
+                <h5 style="color: #e0b0ff; margin: 0;">Total Score: <span id="totalScore">0</span> points</h5>
+                <p style="color: #b19cd9; margin: 0;">Literacy Level: <span id="literacyLevel">Beginner</span></p>
+              </div>
+              <div>
+                <span style="color: #b19cd9;">Games Completed: <span id="gamesCompleted">0</span> / 5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME 1: Drag and Drop Matching -->
+      <div class="row mb-4">
+        <div class="col-lg-10 mx-auto">
+          <div class="game-card">
+            <h4>🧩 Game 1: Concept Matching</h4>
+            <p>Drag terms to their correct definitions!</p>
+            
+            <div id="dragTerms" style="padding: 20px; background: #f0f0f0; border-radius: 10px; margin-bottom: 20px;">
+              <div class="drag-item" draggable="true" data-id="browser">Browser</div>
+              <div class="drag-item" draggable="true" data-id="phishing">Phishing</div>
+              <div class="drag-item" draggable="true" data-id="antivirus">Antivirus</div>
+              <div class="drag-item" draggable="true" data-id="cloud">Cloud Storage</div>
+              <div class="drag-item" draggable="true" data-id="vpn">VPN</div>
+            </div>
+
+            <div id="dropZones">
+              <div class="drop-zone" data-answer="browser">
+                <strong>Definition 1:</strong> Software to access websites (Chrome, Firefox, Safari)
+              </div>
+              <div class="drop-zone" data-answer="phishing">
+                <strong>Definition 2:</strong> Fraudulent attempts to steal information via fake emails
+              </div>
+              <div class="drop-zone" data-answer="antivirus">
+                <strong>Definition 3:</strong> Software that protects from viruses and malware
+              </div>
+              <div class="drop-zone" data-answer="cloud">
+                <strong>Definition 4:</strong> Online storage accessible from anywhere
+              </div>
+              <div class="drop-zone" data-answer="vpn">
+                <strong>Definition 5:</strong> Technology that encrypts your internet connection
+              </div>
+            </div>
+
+            <button class="btn-custom mt-3" onclick="checkMatches()">Check Answers</button>
+            <button class="btn-custom mt-3" onclick="resetMatching()">Reset</button>
+            
+            <div id="matchFeedback" style="margin-top: 15px; padding: 15px; display: none; border-radius: 8px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME 2: Quiz -->
+      <div class="row mb-4">
+        <div class="col-lg-10 mx-auto">
+          <div class="game-card">
+            <h4>❓ Game 2: Digital Literacy Quiz</h4>
+            <p><strong>Score:</strong> <span id="quizScore">0</span> / <span id="quizTotal">0</span></p>
+            
+            <div id="quizContainer">
+              <h5 id="questionText" style="color: #8a2be2;"></h5>
+              <div id="quizOptions"></div>
+              <div id="quizFeedback" style="margin-top: 15px; padding: 15px; display: none; border-radius: 8px;"></div>
+              <button id="nextQuizBtn" class="btn-custom mt-3" onclick="nextQuestion()" style="display: none;">Next Question</button>
+            </div>
+            <button class="btn-custom mt-3" onclick="resetQuiz()">Start New Quiz</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME 3: Scenario Simulator -->
+      <div class="row mb-4">
+        <div class="col-lg-10 mx-auto">
+          <div class="game-card">
+            <h4>🎯 Game 3: Real-World Scenarios</h4>
+            <p><strong>Score:</strong> <span id="scenarioScore">0</span> / <span id="scenarioTotal">0</span></p>
+            
+            <div id="scenarioContainer">
+              <div id="scenarioText" style="padding: 20px; background: #e3f2fd; border: 2px solid #2196f3; border-radius: 10px; margin-bottom: 20px; color: #000;"></div>
+              <div id="scenarioOptions"></div>
+              <div id="scenarioFeedback" style="margin-top: 15px; padding: 15px; display: none; border-radius: 8px;"></div>
+              <button id="nextScenarioBtn" class="btn-custom mt-3" onclick="nextScenario()" style="display: none;">Next Scenario</button>
+            </div>
+            <button class="btn-custom mt-3" onclick="resetScenarios()">Reset Scenarios</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME 4: Device Skills -->
+      <div class="row mb-4">
+        <div class="col-lg-10 mx-auto">
+          <div class="game-card">
+            <h4>📱 Game 4: Device Skills Challenge</h4>
+            <p><strong>Score:</strong> <span id="deviceScore">0</span> / <span id="deviceTotal">0</span></p>
+            
+            <div id="deviceContainer">
+              <h5 style="color: #8a2be2;">Device: <span id="currentDevice"></span></h5>
+              <div id="deviceQuestion" style="padding: 20px; background: #f5f5f5; border-radius: 10px; margin-bottom: 20px; color: #000;"></div>
+              <div id="deviceOptions"></div>
+              <div id="deviceFeedback" style="margin-top: 15px; padding: 15px; display: none; border-radius: 8px;"></div>
+              <button id="nextDeviceBtn" class="btn-custom mt-3" onclick="nextDevice()" style="display: none;">Next Challenge</button>
+            </div>
+            <button class="btn-custom mt-3" onclick="resetDevice()">Reset Device Challenge</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME 5: Safety Test -->
+      <div class="row mb-4">
+        <div class="col-lg-10 mx-auto">
+          <div class="game-card">
+            <h4>🛡️ Game 5: Digital Safety Test</h4>
+            <p><strong>Score:</strong> <span id="safetyScore">0</span> / <span id="safetyTotal">0</span></p>
+            
+            <div id="safetyContainer">
+              <div id="safetyScenario" style="padding: 20px; background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; margin-bottom: 20px; color: #000;"></div>
+              <div id="safetyOptions"></div>
+              <div id="safetyFeedback" style="margin-top: 15px; padding: 15px; display: none; border-radius: 8px;"></div>
+              <button id="nextSafetyBtn" class="btn-custom mt-3" onclick="nextSafety()" style="display: none;">Next Safety Test</button>
+            </div>
+            <button class="btn-custom mt-3" onclick="resetSafety()">Reset Safety Test</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reset All -->
+      <div class="row">
+        <div class="col-12 text-center">
+          <button class="btn-custom" onclick="resetAllGames()">Reset All Games</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center py-4 mt-5" style="background: rgba(5, 10, 20, 0.8);">
+    <p class="mb-0" style="color: #b19cd9;">© 2025 Code Geass - InterLearn | Empowering digital literacy across Africa</p>
   </footer>
 
-  <script>
-    // Game state management
-    let gameState = {
-      totalScore: 0,
-      gamesCompleted: 0,
-      matchingCompleted: false,
-      quizScore: 0,
-      quizTotal: 0,
-      scenarioScore: 0,
-      scenarioTotal: 0,
-      deviceScore: 0,
-      deviceTotal: 0,
-      safetyScore: 0,
-      safetyTotal: 0,
-      achievements: [],
-      currentQuizQuestion: 0,
-      currentScenario: 0,
-      currentDeviceChallenge: 0,
-      currentSafetyTest: 0
-    };
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="digital-literacy.js"></script>
 
-    // Quiz questions data
-    const quizQuestions = [
-      {
-        question: "What should you do before downloading an app?",
-        options: ["Download immediately if it's free", "Check reviews and permissions", "Ask friends on social media", "Download from any website"],
-        correct: 1,
-        explanation: "Always check app reviews, ratings, and permissions before downloading. Only download from official app stores."
-      },
-      {
-        question: "What makes a strong password?",
-        options: ["Your name and birthday", "At least 12 characters with mixed types", "The same password for all accounts", "Simple words that are easy to remember"],
-        correct: 1,
-        explanation: "Strong passwords should be at least 12 characters long and include uppercase, lowercase, numbers, and symbols."
-      },
-      {
-        question: "How often should you back up important files?",
-        options: ["Once a year", "Only when you remember", "Regularly (weekly/monthly)", "Never, it's not necessary"],
-        correct: 2,
-        explanation: "Regular backups (weekly or monthly) protect your important data from loss due to device failure or cyber attacks."
-      },
-      {
-        question: "What is the safest way to connect to internet while traveling?",
-        options: ["Use any free Wi-Fi available", "Use mobile data or trusted networks", "Connect to networks without passwords", "Share Wi-Fi passwords publicly"],
-        correct: 1,
-        explanation: "Mobile data or verified trusted networks are safest. Avoid public Wi-Fi for sensitive activities."
-      },
-      {
-        question: "What should you do if you receive a suspicious email?",
-        options: ["Click all links to investigate", "Delete it immediately without opening", "Forward it to all your contacts", "Reply asking for more information"],
-        correct: 1,
-        explanation: "Delete suspicious emails without opening attachments or clicking links. Report phishing attempts to your email provider."
-      },
-      {
-        question: "Which file format is commonly used for documents?",
-        options: [".mp3", ".pdf", ".jpg", ".exe"],
-        correct: 1,
-        explanation: "PDF (.pdf) is a common document format. .mp3 is audio, .jpg is images, and .exe is executable programs."
-      },
-      {
-        question: "What does 'cloud storage' mean?",
-        options: ["Storage in the sky", "Saving files on internet servers", "Storage that moves around", "A type of weather app"],
-        correct: 1,
-        explanation: "Cloud storage means saving your files on remote servers accessible via the internet from any device."
-      },
-      {
-        question: "When shopping online, what should you look for to ensure safety?",
-        options: ["Lowest prices only", "HTTPS and secure payment methods", "No customer reviews", "Websites without contact information"],
-        correct: 1,
-        explanation: "Look for HTTPS security, secure payment methods, good reviews, and legitimate contact information."
-      },
-      {
-        question: "What is two-factor authentication (2FA)?",
-        options: ["Using two passwords", "An extra security step beyond password", "Having two user accounts", "A type of antivirus"],
-        correct: 1,
-        explanation: "2FA adds an extra security layer by requiring a second form of verification beyond your password."
-      },
-      {
-        question: "How can you identify reliable information online?",
-        options: ["If it's on social media, it's true", "Check multiple credible sources", "Believe everything you read", "Only trust information from friends"],
-        correct: 1,
-        explanation: "Always verify information by checking multiple credible sources and fact-checking websites."
-      }
-    ];
-
-    // Scenario data
-    const scenarios = [
-      {
-        scenario: "You're setting up a new smartphone. The setup asks for your location, contacts, photos, and microphone access for a flashlight app.",
-        options: [
-          "Allow all permissions - it must need them",
-          "Only allow necessary permissions for app function",
-          "Deny all permissions completely",
-          "Ask friends what they would do"
-        ],
-        correct: 1,
-        explanation: "A flashlight app shouldn't need access to contacts, photos, or microphone. Only grant permissions that make sense for the app's function."
-      },
-      {
-        scenario: "You receive a WhatsApp message from an unknown number saying 'Congratulations! You've won P50,000! Click this link to claim your prize.'",
-        options: [
-          "Click the link immediately to claim the prize",
-          "Share the link with friends so they can win too",
-          "Delete the message and block the number",
-          "Reply asking for more details about the prize"
-        ],
-        correct: 2,
-        explanation: "This is a classic scam. Legitimate prizes don't come from unknown numbers. Delete and block to protect yourself."
-      },
-      {
-        scenario: "Your computer is running slowly and you see a popup saying 'Your computer is infected! Download CleanMyPC Pro now!'",
-        options: [
-          "Download the software immediately",
-          "Close the popup and run legitimate antivirus scan",
-          "Click on the popup to learn more",
-          "Restart your computer and ignore it"
-        ],
-        correct: 1,
-        explanation: "This is
-
-
+</body>
+</html>
